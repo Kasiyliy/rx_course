@@ -16,8 +16,7 @@ public class LessonMapper extends AbstractModelMapper<Lesson, LessonDto> {
     private CourseMapper courseMapper;
 
     @Autowired
-    public LessonMapper(ModelMapper modelMapper,
-                        UserMapper userMapper) {
+    public LessonMapper(ModelMapper modelMapper, CourseMapper courseMapper) {
         this.modelMapper = modelMapper;
         this.courseMapper = courseMapper;
     }

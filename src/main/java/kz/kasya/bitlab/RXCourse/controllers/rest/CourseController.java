@@ -61,6 +61,15 @@ public class CourseController extends BaseController {
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
+    @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    public ResponseEntity<?> update(@RequestBody CourseDto courseDto) throws ServiceException {
+        Course course = courseService.update(courseMapper.toEntity(courseDto));
+        return buildResponse(SuccessResponse.builder()
+                .message("updated")
+                .data(courseMapper.toDto(course))
+                .build(), HttpStatus.OK);
+    }
+
 
 
 }

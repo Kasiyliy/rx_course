@@ -1,9 +1,9 @@
 package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
-import kz.kasya.bitlab.RXCourse.models.entities.Course;
-import kz.kasya.bitlab.RXCourse.models.entities.Lesson;
-import kz.kasya.bitlab.RXCourse.repositories.LessonRepository;
+import kz.kasya.bitlab.RXCourse.models.entities.LessonMaterial;
+import kz.kasya.bitlab.RXCourse.repositories.LessonMaterialRepository;
+import kz.kasya.bitlab.RXCourse.services.LessonMaterialService;
 import kz.kasya.bitlab.RXCourse.services.LessonService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +14,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LessonServiceImpl implements LessonService{
-
-    private LessonRepository lessonRepository;
+public class LessonMaterialServiceImpl implements LessonMaterialService{
+    private LessonMaterialRepository lessonMaterialRepository;
 
     @Autowired
-    public LessonServiceImpl(LessonRepository lessonRepository) {
-        this.lessonRepository = lessonRepository;
+    public LessonMaterialServiceImpl(LessonMaterialRepository lessonMaterialRepository) {
+        this.lessonMaterialRepository = lessonMaterialRepository;
     }
 
     @Override
-    public List<Lesson> findAll(){
-        return lessonRepository.findAllByDeletedAtIsNull();
+    public List<LessonMaterial> findAll() {
+        return lessonMaterialRepository.findAllByDeletedAtIsNull();
     }
 
     @Override
-    public Lesson findById(Long id) throws ServiceException {
-        Optional<Lesson> courseOptional = lessonRepository.findById(id);
+    public LessonMaterial findById(Long id) throws ServiceException {
+        Optional<LessonMaterial> courseOptional = lessonMaterialRepository.findById(id);
         return courseOptional.orElseThrow(() -> ServiceException.builder()
                 .errorCode(ErrorCode.RESOURCE_NOT_FOUND)
                 .message("lesson not found")
@@ -38,39 +37,38 @@ public class LessonServiceImpl implements LessonService{
     }
 
     @Override
-    public Lesson save(Lesson lesson) throws ServiceException {
-        if(lesson.getId() != null){
+    public LessonMaterial save(LessonMaterial lessonMaterial) throws ServiceException {
+        if(lessonMaterial.getId() != null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.ALREADY_EXISTS)
                     .message("lesson already exists")
                     .build();
         }
-        return  lessonRepository.save(lesson);
+        return  lessonMaterialRepository.save(lessonMaterial);
     }
 
-
     @Override
-    public Lesson update(Lesson lesson) throws ServiceException {
-        if(lesson.getId() == null){
+    public LessonMaterial update(LessonMaterial lessonMaterial) throws ServiceException {
+        if(lessonMaterial.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
                     .message("lesson is null")
                     .build();
         }
-        return lessonRepository.save(lesson);
+        return lessonMaterialRepository.save(lessonMaterial);
     }
 
     @Override
-    public void delete(Lesson lesson) throws ServiceException {
-        if(lesson.getId() == null){
+    public void delete(LessonMaterial lessonMaterial) throws ServiceException {
+        if(lessonMaterial.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
                     .message("lesson is null")
                     .build();
         }
-        lesson = findById(lesson.getId());
-        lesson.setDeletedAt(new Date());
-        lessonRepository.save(lesson);
+        lessonMaterial = findById(lessonMaterial.getId());
+        lessonMaterial.setDeletedAt(new Date());
+        lessonMaterialRepository.save(lessonMaterial);
     }
 
     @Override
@@ -81,9 +79,8 @@ public class LessonServiceImpl implements LessonService{
                     .message("id is null")
                     .build();
         }
-        Lesson lesson = findById(id);
-        lesson.setDeletedAt(new Date());
-        lessonRepository.save(lesson);
+        LessonMaterial lessonMaterial = findById(id);
+        lessonMaterial.setDeletedAt(new Date());
+        lessonMaterialRepository.save(lessonMaterial);
     }
-
 }
