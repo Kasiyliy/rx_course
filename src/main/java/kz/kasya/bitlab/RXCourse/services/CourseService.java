@@ -10,6 +10,8 @@ public interface CourseService {
     Course findById(Long id) throws ServiceException;
     Course update(Course course) throws ServiceException ;
     Course save(Course course) throws ServiceException;
+    void delete(Course course) throws ServiceException ;
+    void deleteById(Long id) throws ServiceException ;
 
 
 }

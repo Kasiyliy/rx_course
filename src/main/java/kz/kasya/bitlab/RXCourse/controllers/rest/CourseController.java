@@ -8,6 +8,7 @@ import kz.kasya.bitlab.RXCourse.models.dtos.CourseDto;
 import kz.kasya.bitlab.RXCourse.models.entities.Course;
 import kz.kasya.bitlab.RXCourse.models.mappers.CourseMapper;
 import kz.kasya.bitlab.RXCourse.services.CourseService;
+import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,20 @@ public class CourseController extends BaseController {
     public ResponseEntity<?> add(@RequestBody CourseDto courseDto) throws ServiceException{
         Course course = courseMapper.toEntity(courseDto);
         return buildResponse(courseMapper.toDto(courseService.save(course)), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping
+    @ApiOperation("Удаление курса")
+    public ResponseEntity<?> delete(@RequestBody CourseDto courseDto) throws ServiceException{
+        courseService.delete(courseMapper.toEntity(courseDto));
+        return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    @ApiOperation("Удаление курса по ID")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
+        courseService.deleteById(id);
+        return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
 

@@ -8,6 +8,7 @@ import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,31 @@ public class CourseServiceImpl implements CourseService {
                     .build();
         }
         return courseRepository.save(course);
+    }
+
+    @Override
+    public void delete(Course course) throws ServiceException {
+        if(course.getId() == null){
+            throw ServiceException.builder()
+                    .errorCode(ErrorCode.SYSTEM_ERROR)
+                    .message("user is null")
+                    .build();
+        }
+        course = findById(course.getId());
+        course.setDeletedAt(new Date());
+        courseRepository.save(course);
+    }
+
+    @Override
+    public void deleteById(Long id) throws ServiceException {
+        if(id == null){
+            throw ServiceException.builder()
+                    .errorCode(ErrorCode.SYSTEM_ERROR)
+                    .message("id is null")
+                    .build();
+        }
+        Course course = findById(id);
+        course.setDeletedAt(new Date());
+        courseRepository.save(course);
     }
 }
