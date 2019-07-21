@@ -47,8 +47,8 @@ public class LessonMapper extends AbstractModelMapper<Lesson, LessonDto> {
     }
 
     @Override
-    public List<Lesson> toEntityList(List<LessonDto> courseDtos) {
-        return courseDtos.stream()
+    public List<Lesson> toEntityList(List<LessonDto> lessonDtos) {
+        return lessonDtos.stream()
                 .map(this::toEntity)
                 .collect(Collectors.toList());
     }
