@@ -64,7 +64,7 @@ public class CourseServiceImpl implements CourseService {
         if(course.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("user is null")
+                    .message("course is null")
                     .build();
         }
         course = findById(course.getId());
