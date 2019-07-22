@@ -9,7 +9,7 @@ public class TestResultsAnswerController extends BaseController {
     private TestResultsAnswerMapper testResultsAnswerMapper;
 
     public TestResultsAnswerController(TestResultsAnswerService testResultsAnswerService, TestResultsAnswerMapper testResultsAnswerMapper){
-        this.testResultsAnswerMapper = testResultsAnswerMapper; 
+        this.testResultsAnswerMapper = testResultsAnswerMapper;
         this.testResultsAnswerService = testResultsAnswerService;
     }
 }
