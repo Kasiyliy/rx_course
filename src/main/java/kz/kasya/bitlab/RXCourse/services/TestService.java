@@ -8,8 +8,8 @@ import java.util.List;
 public interface TestService {
     List<Test> findAll();
     Test findById(Long id) throws ServiceException;
-    Test save(Test lesson) throws ServiceException;
-    Test update(Test lesson) throws ServiceException;
-    void delete(Test lesson) throws ServiceException ;
+    Test save(Test test) throws ServiceException;
+    Test update(Test test) throws ServiceException;
+    void delete(Test test) throws ServiceException ;
     void deleteById(Long id) throws ServiceException ;
 }
