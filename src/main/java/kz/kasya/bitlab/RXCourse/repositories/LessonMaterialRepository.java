@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface LessonMaterialRepository extends JpaRepository<LessonMaterial,Long> {
     List<LessonMaterial> findAllByDeletedAtIsNull();
-
+    List<LessonMaterial> findAllByLessonId(Long id);
 }

@@ -86,4 +86,16 @@ public class LessonServiceImpl implements LessonService{
         lessonRepository.save(lesson);
     }
 
+    @Override
+    public List<Lesson> findByCourseId(Long id) throws ServiceException {
+        if(id == null) {
+            throw ServiceException.builder()
+                    .errorCode(ErrorCode.SYSTEM_ERROR)
+                    .message("id is null")
+                    .build();
+        }
+        return lessonRepository.findAllByCourseId(id);
+
+    }
+
 }

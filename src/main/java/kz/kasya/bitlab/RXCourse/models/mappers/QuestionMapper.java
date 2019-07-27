@@ -23,8 +23,8 @@ public class QuestionMapper extends AbstractModelMapper<Question, QuestionDto> {
     @Override
     public QuestionDto toDto(Question question) {
         QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
-        if (question.getTestLesson() != null) {
-            questionDto.setTestDto(testMapper.toDto(question.getTestLesson()));
+        if (question.getTest() != null) {
+            questionDto.setTestDto(testMapper.toDto(question.getTest()));
         }
         return questionDto;
     }
@@ -33,7 +33,7 @@ public class QuestionMapper extends AbstractModelMapper<Question, QuestionDto> {
     public Question toEntity(QuestionDto questionDto) {
         Question question = modelMapper.map(questionDto, Question.class);
         if (questionDto.getTestDto() != null) {
-            question.setTestLesson(testMapper.toEntity(questionDto.getTestDto()));
+            question.setTest(testMapper.toEntity(questionDto.getTestDto()));
         }
 
         return question;

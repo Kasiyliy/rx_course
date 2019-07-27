@@ -83,4 +83,15 @@ public class LessonMaterialServiceImpl implements LessonMaterialService{
         lessonMaterial.setDeletedAt(new Date());
         lessonMaterialRepository.save(lessonMaterial);
     }
+
+    @Override
+    public List<LessonMaterial> findByLessonId(Long id) throws ServiceException {
+        if(id == null){
+            throw ServiceException.builder()
+                    .errorCode(ErrorCode.SYSTEM_ERROR)
+                    .message("id is null")
+                    .build();
+        }
+        return lessonMaterialRepository.findAllByLessonId(id);
+    }
 }

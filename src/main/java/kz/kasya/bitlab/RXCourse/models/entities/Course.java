@@ -31,7 +31,7 @@ public class Course extends AuditModel {
     @NotNull(message = "course name is required")
     private String courseName;
 
-    @Column(name = "decription")
+    @Column(name = "description")
     @NotNull(message = "description is required")
     private String description;
 

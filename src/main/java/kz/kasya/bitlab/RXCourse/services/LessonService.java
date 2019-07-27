@@ -12,6 +12,7 @@ public interface LessonService {
     Lesson update(Lesson lesson) throws ServiceException;
     void delete(Lesson lesson) throws ServiceException ;
     void deleteById(Long id) throws ServiceException ;
+    List<Lesson> findByCourseId(Long id) throws ServiceException;
 
 
 }

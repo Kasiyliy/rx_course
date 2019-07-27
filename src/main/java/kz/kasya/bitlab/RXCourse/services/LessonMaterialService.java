@@ -12,4 +12,5 @@ public interface LessonMaterialService {
     LessonMaterial update(LessonMaterial lessonMaterial) throws ServiceException;
     void delete(LessonMaterial lessonMaterial) throws ServiceException;
     void deleteById(Long id) throws ServiceException;
+    List<LessonMaterial> findByLessonId(Long id) throws ServiceException;
 }

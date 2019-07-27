@@ -70,4 +70,10 @@ public class LessonController extends BaseController {
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
+    @GetMapping("course/{id}")
+    @ApiOperation("Уроки по курсам")
+    public ResponseEntity<?> lessonsByCourseId(@PathVariable Long id) throws ServiceException{
+        return buildResponse(lessonMapper.toDtoList(lessonService.findByCourseId(id)), HttpStatus.OK);
+    }
+
 }

@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 )
 public class LessonMaterial extends AuditModel{
     @Column(name = "type")
-    @NotNull(message = "lessonMaterial is required")
+    @NotNull(message = "type is required")
     private String type;
 
     @Column(name = "url")
@@ -33,6 +33,6 @@ public class LessonMaterial extends AuditModel{
     private String description;
 
     @ManyToOne
-    @NotNull(message = "lesson id is required")
+    @NotNull(message = "lesson is required")
     private Lesson lesson;
 }

@@ -67,4 +67,10 @@ public class LessonMaterialController extends BaseController {
         lessonMaterialService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
+
+    @GetMapping("lesson/{id}")
+    @ApiOperation("Материалы по уроку")
+    public ResponseEntity<?> materialsByLesson(@PathVariable Long id) throws  ServiceException {
+        return buildResponse(lessonMaterialMapper.toDtoList(lessonMaterialService.findByLessonId(id)), HttpStatus.OK);
+    }
 }

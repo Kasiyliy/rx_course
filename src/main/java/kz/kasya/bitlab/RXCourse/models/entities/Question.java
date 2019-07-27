@@ -31,5 +31,5 @@ public class Question extends AuditModel {
     private Integer score;
 
     @ManyToOne
-    private Test testLesson;
+    private Test test;
 }
