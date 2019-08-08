@@ -18,5 +18,5 @@ public class LessonDto extends BaseDto {
     private Integer order;
 
     @ApiModelProperty(notes = "Курс к которому относится урок", readOnly = true)
-    private CourseDto courseDto;
+    private CourseDto course;
 }

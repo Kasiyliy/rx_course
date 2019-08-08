@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class TestResultDto extends BaseDto {
 
     @ApiModelProperty(notes = "Относящийся пользователь", readOnly = true)
-    private UserDto userDto;
+    private UserDto user;
 
     @ApiModelProperty(notes = "Относящийся тест", readOnly = true)
-    private TestDto testDto;
+    private TestDto test;
 
     @ApiModelProperty(notes = "Результат теста", readOnly = true)
     private Integer result;

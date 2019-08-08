@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @ApiModel(description = "Таблица которая описывает модель ответов вопросов теста")
 public class TestResultsAnswerDto extends BaseDto {
     @ApiModelProperty(notes = "Относящийся конечный результат теста", readOnly = true)
-    private TestResultDto testResultDto;
+    private TestResultDto testResult;
 
     @ApiModelProperty(notes = "Относящийся вопрос", readOnly = true)
-    private QuestionDto questionDto;
+    private QuestionDto question;
 
     @ApiModelProperty(notes = "Относяший вариант вопросв", readOnly = true)
-    private QuestionOptionDto questionOptionDto;
+    private QuestionOptionDto questionOption;
 
     @ApiModelProperty(notes = "Ответ", readOnly = true)
     private boolean answer;

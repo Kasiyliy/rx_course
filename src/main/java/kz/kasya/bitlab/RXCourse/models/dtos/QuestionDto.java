@@ -22,5 +22,5 @@ public class QuestionDto extends BaseDto {
     private Integer score;
 
     @ApiModelProperty(notes = "Тест вопроса", readOnly = true)
-    private TestDto testDto;
+    private TestDto test;
 }

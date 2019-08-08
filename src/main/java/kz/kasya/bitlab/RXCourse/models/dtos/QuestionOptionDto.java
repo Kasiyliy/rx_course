@@ -15,7 +15,7 @@ public class QuestionOptionDto extends BaseDto {
     private String answer;
 
     @ApiModelProperty(notes = "Вопрос ответа", readOnly = true)
-    private QuestionDto questionDto;
+    private QuestionDto question;
 
     @ApiModelProperty(notes = "Правильность", readOnly = true)
     private Boolean rightAnswer;

@@ -20,5 +20,5 @@ public class LessonMaterialDto extends BaseDto{
     private String description;
 
     @ApiModelProperty(notes = "Урок к которому относится файл", readOnly = true)
-    private LessonDto lessonDto;
+    private LessonDto lesson;
 }

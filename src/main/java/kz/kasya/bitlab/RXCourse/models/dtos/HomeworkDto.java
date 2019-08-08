@@ -17,6 +17,6 @@ public class HomeworkDto extends BaseDto{
     private String url;
 
     @ApiModelProperty(notes = "Урок к которому относится задание", readOnly = true)
-    private LessonDto lessonDto;
+    private LessonDto lesson;
 
 }

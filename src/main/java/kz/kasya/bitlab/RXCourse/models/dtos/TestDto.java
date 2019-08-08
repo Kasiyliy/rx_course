@@ -18,8 +18,8 @@ public class TestDto extends BaseDto {
     private String description;
 
     @ApiModelProperty(notes = "Относящий курс", readOnly = true)
-    private CourseDto courseDto;
+    private CourseDto course;
 
     @ApiModelProperty(notes = "Относящийся урок", readOnly = true)
-    private LessonDto lessonDto;
+    private LessonDto lesson;
 }
