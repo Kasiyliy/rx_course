@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Date;
 
-@RestController
-@RequestMapping("/api/image")
+//@RestController
+//@RequestMapping("/api/image")
 public class ImageController {
 
     @Value("${image.not.found.src}")
