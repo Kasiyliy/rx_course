@@ -25,7 +25,7 @@ public class LessonMapper extends AbstractModelMapper<Lesson, LessonDto> {
     public LessonDto toDto(Lesson lesson) {
         LessonDto lessonDto = modelMapper.map(lesson, LessonDto.class);
         if (lesson.getCourse() != null) {
-            lessonDto.setCourseDto(courseMapper.toDto(lesson.getCourse()));
+            lessonDto.setCourse(courseMapper.toDto(lesson.getCourse()));
         }
         return lessonDto;
     }
@@ -33,8 +33,8 @@ public class LessonMapper extends AbstractModelMapper<Lesson, LessonDto> {
     @Override
     public Lesson toEntity(LessonDto lessonDto) {
         Lesson lesson = modelMapper.map(lessonDto, Lesson.class);
-        if (lessonDto.getCourseDto() != null) {
-            lesson.setCourse(courseMapper.toEntity(lessonDto.getCourseDto()));
+        if (lessonDto.getCourse() != null) {
+            lesson.setCourse(courseMapper.toEntity(lessonDto.getCourse()));
         }
         return lesson;
     }

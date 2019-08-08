@@ -28,13 +28,13 @@ public class TestResultsAnswerMapper extends AbstractModelMapper<TestResultsAnsw
     public TestResultsAnswerDto toDto(TestResultsAnswer testResultsAnswer) {
         TestResultsAnswerDto testResultsAnswerDto = modelMapper.map(testResultsAnswer, TestResultsAnswerDto.class);
         if (testResultsAnswer.getTestResult() != null) {
-            testResultsAnswerDto.setTestResultDto(testResultMapper.toDto(testResultsAnswer.getTestResult()));
+            testResultsAnswerDto.setTestResult(testResultMapper.toDto(testResultsAnswer.getTestResult()));
         }
         if (testResultsAnswer.getQuestion() != null) {
-                testResultsAnswerDto.setQuestionDto(questionMapper.toDto(testResultsAnswer.getQuestion()));
+                testResultsAnswerDto.setQuestion(questionMapper.toDto(testResultsAnswer.getQuestion()));
         }
         if (testResultsAnswer.getQuestionOption() != null) {
-            testResultsAnswerDto.setQuestionOptionDto(questionOptionMapper.toDto(testResultsAnswer.getQuestionOption()));
+            testResultsAnswerDto.setQuestionOption(questionOptionMapper.toDto(testResultsAnswer.getQuestionOption()));
         }
         return testResultsAnswerDto;
     }
@@ -42,15 +42,15 @@ public class TestResultsAnswerMapper extends AbstractModelMapper<TestResultsAnsw
     @Override
     public TestResultsAnswer toEntity(TestResultsAnswerDto testResultsAnswerDto) {
         TestResultsAnswer testResultsAnswer = modelMapper.map(testResultsAnswerDto, TestResultsAnswer.class);
-        if (testResultsAnswerDto.getTestResultDto() != null) {
-            testResultsAnswer.setTestResult(testResultMapper.toEntity(testResultsAnswerDto.getTestResultDto()));
+        if (testResultsAnswerDto.getTestResult() != null) {
+            testResultsAnswer.setTestResult(testResultMapper.toEntity(testResultsAnswerDto.getTestResult()));
         }
 
-        if (testResultsAnswerDto.getQuestionDto() != null) {
-            testResultsAnswer.setQuestion(questionMapper.toEntity(testResultsAnswerDto.getQuestionDto()));
+        if (testResultsAnswerDto.getQuestion() != null) {
+            testResultsAnswer.setQuestion(questionMapper.toEntity(testResultsAnswerDto.getQuestion()));
         }
-        if (testResultsAnswerDto.getQuestionOptionDto() != null) {
-            testResultsAnswer.setQuestionOption(questionOptionMapper.toEntity(testResultsAnswerDto.getQuestionOptionDto()));
+        if (testResultsAnswerDto.getQuestionOption() != null) {
+            testResultsAnswer.setQuestionOption(questionOptionMapper.toEntity(testResultsAnswerDto.getQuestionOption()));
         }
         return testResultsAnswer;
     }

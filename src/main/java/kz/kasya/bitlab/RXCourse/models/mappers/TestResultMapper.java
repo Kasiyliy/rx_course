@@ -25,10 +25,10 @@ public class TestResultMapper extends AbstractModelMapper<TestResult, TestResult
     public TestResultDto toDto(TestResult testResult) {
         TestResultDto testResultDto = modelMapper.map(testResult, TestResultDto.class);
         if (testResult.getUser() != null) {
-            testResultDto.setUserDto(userMapper.toDto(testResult.getUser()));
+            testResultDto.setUser(userMapper.toDto(testResult.getUser()));
         }
         if (testResult.getTest() != null) {
-            testResultDto.setTestDto(testMapper.toDto(testResult.getTest()));
+            testResultDto.setTest(testMapper.toDto(testResult.getTest()));
         }
         return testResultDto;
     }
@@ -36,12 +36,12 @@ public class TestResultMapper extends AbstractModelMapper<TestResult, TestResult
     @Override
     public TestResult toEntity(TestResultDto testResultDto) {
         TestResult test = modelMapper.map(testResultDto, TestResult.class);
-        if (testResultDto.getUserDto() != null) {
-            test.setUser(userMapper.toEntity(testResultDto.getUserDto()));
+        if (testResultDto.getUser() != null) {
+            test.setUser(userMapper.toEntity(testResultDto.getUser()));
         }
 
-        if (testResultDto.getTestDto() != null) {
-            test.setTest(testMapper.toEntity(testResultDto.getTestDto()));
+        if (testResultDto.getTest() != null) {
+            test.setTest(testMapper.toEntity(testResultDto.getTest()));
         }
         return test;
     }

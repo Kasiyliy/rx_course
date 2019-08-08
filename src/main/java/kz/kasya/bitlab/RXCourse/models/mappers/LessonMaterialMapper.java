@@ -25,15 +25,15 @@ public class LessonMaterialMapper extends AbstractModelMapper<LessonMaterial, Le
     public LessonMaterialDto toDto(LessonMaterial lessonMaterial) {
         LessonMaterialDto lessonMaterialDto = modelMapper.map(lessonMaterial, LessonMaterialDto.class);
         if (lessonMaterial.getLesson() != null) {
-            lessonMaterialDto.setLessonDto(lessonMapper.toDto(lessonMaterial.getLesson()));
+            lessonMaterialDto.setLesson(lessonMapper.toDto(lessonMaterial.getLesson()));
         }
         return lessonMaterialDto;    }
 
     @Override
     public LessonMaterial toEntity(LessonMaterialDto lessonMaterialDto) {
         LessonMaterial lessonMaterial = modelMapper.map(lessonMaterialDto, LessonMaterial.class);
-        if (lessonMaterialDto.getLessonDto() != null) {
-            lessonMaterial.setLesson(lessonMapper.toEntity(lessonMaterialDto.getLessonDto()));
+        if (lessonMaterialDto.getLesson() != null) {
+            lessonMaterial.setLesson(lessonMapper.toEntity(lessonMaterialDto.getLesson()));
         }
         return lessonMaterial;
     }

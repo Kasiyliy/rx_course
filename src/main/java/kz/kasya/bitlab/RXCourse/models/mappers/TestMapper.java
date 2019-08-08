@@ -25,10 +25,10 @@ public class TestMapper extends AbstractModelMapper<Test, TestDto> {
     public TestDto toDto(Test test) {
         TestDto testDto = modelMapper.map(test, TestDto.class);
         if (test.getCourse() != null) {
-            testDto.setCourseDto(courseMapper.toDto(test.getCourse()));
+            testDto.setCourse(courseMapper.toDto(test.getCourse()));
         }
         if (test.getLesson() != null) {
-            testDto.setLessonDto(lessonMapper.toDto(test.getLesson()));
+            testDto.setLesson(lessonMapper.toDto(test.getLesson()));
         }
         return testDto;
     }
@@ -36,12 +36,12 @@ public class TestMapper extends AbstractModelMapper<Test, TestDto> {
     @Override
     public Test toEntity(TestDto testDto) {
         Test test = modelMapper.map(testDto, Test.class);
-        if (testDto.getCourseDto() != null) {
-            test.setCourse(courseMapper.toEntity(testDto.getCourseDto()));
+        if (testDto.getCourse() != null) {
+            test.setCourse(courseMapper.toEntity(testDto.getCourse()));
         }
 
-        if (testDto.getLessonDto() != null) {
-            test.setLesson(lessonMapper.toEntity(testDto.getLessonDto()));
+        if (testDto.getLesson() != null) {
+            test.setLesson(lessonMapper.toEntity(testDto.getLesson()));
         }
         return test;
     }

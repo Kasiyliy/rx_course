@@ -26,7 +26,7 @@ public class HomeworkMapper extends AbstractModelMapper<Homework, HomeworkDto> {
     public HomeworkDto toDto(Homework homework) {
         HomeworkDto homeworkDto= modelMapper.map(homework, HomeworkDto.class);
         if (homework.getLesson() != null) {
-            homeworkDto.setLessonDto(lessonMapper.toDto(homework.getLesson()));
+            homeworkDto.setLesson(lessonMapper.toDto(homework.getLesson()));
         }
         return homeworkDto;
     }
@@ -34,8 +34,8 @@ public class HomeworkMapper extends AbstractModelMapper<Homework, HomeworkDto> {
     @Override
     public Homework toEntity(HomeworkDto homeworkDto) {
         Homework homework = modelMapper.map(homeworkDto, Homework.class);
-        if (homeworkDto.getLessonDto() != null) {
-            homework.setLesson(lessonMapper.toEntity(homeworkDto.getLessonDto()));
+        if (homeworkDto.getLesson() != null) {
+            homework.setLesson(lessonMapper.toEntity(homeworkDto.getLesson()));
         }
         return homework;
     }

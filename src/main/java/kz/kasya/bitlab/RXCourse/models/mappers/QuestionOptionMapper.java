@@ -25,7 +25,7 @@ public class QuestionOptionMapper extends AbstractModelMapper<QuestionOption, Qu
     public QuestionOptionDto toDto(QuestionOption questionOption) {
         QuestionOptionDto questionOptionDto = modelMapper.map(questionOption, QuestionOptionDto.class);
         if (questionOption.getQuestion() != null) {
-            questionOptionDto.setQuestionDto(questionMapper.toDto(questionOption.getQuestion()));
+            questionOptionDto.setQuestion(questionMapper.toDto(questionOption.getQuestion()));
         }
         return questionOptionDto;
     }
@@ -33,8 +33,8 @@ public class QuestionOptionMapper extends AbstractModelMapper<QuestionOption, Qu
     @Override
     public QuestionOption toEntity(QuestionOptionDto questionOptionDto) {
         QuestionOption questionOption = modelMapper.map(questionOptionDto, QuestionOption.class);
-        if (questionOptionDto.getQuestionDto() != null) {
-            questionOption.setQuestion(questionMapper.toEntity(questionOptionDto.getQuestionDto()));
+        if (questionOptionDto.getQuestion() != null) {
+            questionOption.setQuestion(questionMapper.toEntity(questionOptionDto.getQuestion()));
         }
 
         return questionOption;
