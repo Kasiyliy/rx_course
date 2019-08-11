@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/courses")
@@ -75,6 +77,14 @@ public class CourseController extends BaseController {
                 .message("updated")
                 .data(courseMapper.toDto(course))
                 .build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/pagination")
+    @ApiOperation("Получение всех курсы в грязном виде")
+    public ResponseEntity<?> getAllPagination(@RequestParam Optional<Integer> page,
+                                              @RequestParam Optional<Integer> size,
+                                              @RequestParam Optional<String[]> sortBy) {
+        return buildResponse(courseService.findAllPageable(page, size, sortBy), HttpStatus.OK);
     }
 
 

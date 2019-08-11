@@ -82,4 +82,9 @@ public class QuestionServiceImpl implements QuestionService {
         question.setDeletedAt(new Date());
         questionRepository.save(question);
     }
+
+    @Override
+    public List<Question> findAllByTestId(Long id) throws ServiceException {
+        return questionRepository.findAllByDeletedAtNullAndTest_Id(id);
+    }
 }

@@ -29,8 +29,14 @@ public class CourseDto extends BaseDto{
 
     @ApiModelProperty(notes = "Пользователь", readOnly = true)
     private UserDto user;
+//
+//    @ApiModelProperty(notes = "Категория", readOnly = true)
+//    private ;
 
 
     @ApiModelProperty(notes = "Фото, картинка", readOnly = true)
     private String image;
+
+    @ApiModelProperty(notes = "Категорий", readOnly = true)
+    private CategoryDto category;
 }

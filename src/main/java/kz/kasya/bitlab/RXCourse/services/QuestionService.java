@@ -12,4 +12,5 @@ public interface QuestionService {
     Question update(Question question) throws ServiceException;
     void delete(Question question) throws ServiceException ;
     void deleteById(Long id) throws ServiceException ;
+    List<Question> findAllByTestId(Long id) throws ServiceException ;
 }

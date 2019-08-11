@@ -15,12 +15,15 @@ public class CourseMapper extends AbstractModelMapper<Course, CourseDto> {
 
     private ModelMapper modelMapper;
     private UserMapper userMapper;
+    private CategoryMapper categoryMapper;
 
     @Autowired
     public CourseMapper(ModelMapper modelMapper,
-                      UserMapper userMapper) {
+                      UserMapper userMapper,
+                        CategoryMapper categoryMapper) {
         this.modelMapper = modelMapper;
         this.userMapper = userMapper;
+        this.categoryMapper = categoryMapper;
     }
 
     @Override
@@ -28,6 +31,9 @@ public class CourseMapper extends AbstractModelMapper<Course, CourseDto> {
         CourseDto courseDto = modelMapper.map(course, CourseDto.class);
         if (course.getUser() != null) {
             courseDto.setUser(userMapper.toDto(course.getUser()));
+        }
+        if (course.getCategory() != null) {
+            courseDto.setCategory(categoryMapper.toDto(course.getCategory()));
         }
         return courseDto;
     }
@@ -37,6 +43,9 @@ public class CourseMapper extends AbstractModelMapper<Course, CourseDto> {
         Course course = modelMapper.map(courseDto, Course.class);
         if (courseDto.getUser() != null) {
             course.setUser(userMapper.toEntity(courseDto.getUser()));
+        }
+        if (courseDto.getCategory() != null) {
+            course.setCategory(categoryMapper.toEntity(courseDto.getCategory()));
         }
         return course;
     }

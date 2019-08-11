@@ -51,9 +51,8 @@ public class Course extends AuditModel {
     @NotNull(message = "image is required")
     private String image;
 
-
-
-
-
+    @ManyToOne
+    @NotNull(message = "category is required")
+    private Category category;
 
 }

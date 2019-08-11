@@ -82,4 +82,9 @@ public class QuestionOptionServiceImpl implements QuestionOptionService {
         questionOption.setDeletedAt(new Date());
         questionOptionRepository.save(questionOption);
     }
+
+    @Override
+    public List<QuestionOption> findAllByQuestionIds(List<Long> ids) throws ServiceException {
+        return questionOptionRepository.findAllByDeletedAtNullAndQuestion_IdIn(ids);
+    }
 }

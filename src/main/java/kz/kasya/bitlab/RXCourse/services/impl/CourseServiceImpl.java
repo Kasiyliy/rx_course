@@ -6,11 +6,16 @@ import kz.kasya.bitlab.RXCourse.repositories.CourseRepository;
 import kz.kasya.bitlab.RXCourse.services.CourseService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -62,10 +67,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void delete(Course course) throws ServiceException {
         if(course.getId() == null){
-            throw ServiceException.builder()
-                    .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("course is null")
-                    .build();
+                throw ServiceException.builder()
+                        .errorCode(ErrorCode.SYSTEM_ERROR)
+                        .message("course is null")
+                        .build();
         }
         course = findById(course.getId());
         course.setDeletedAt(new Date());
@@ -84,4 +89,19 @@ public class CourseServiceImpl implements CourseService {
         course.setDeletedAt(new Date());
         courseRepository.save(course);
     }
+
+    @Override
+    public Page<Course> findAllPageable(Optional<Integer> page, Optional<Integer> size, Optional<String[]> sortBy) {
+        Sort sort = null;
+        if(sortBy.isPresent()){
+            String[] sorters = sortBy.get();
+            List<Sort.Order> sorts = Arrays.stream(sorters)
+                    .map(s -> s.split("-")[0].trim().equalsIgnoreCase("asc")
+                            ? Sort.Order.asc( s.split("-")[1]) : Sort.Order.desc( s.split("-")[1]))
+                    .collect(Collectors.toList());
+            sort = Sort.by(sorts);
+        }else{
+            sort = Sort.by("id");
+        }
+        return courseRepository.findAllPageableByDeletedAtIsNull(PageRequest.of(page.orElse(0),size.orElse(5),sort));}
 }

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByDeletedAtIsNull();
+    List<Question> findAllByDeletedAtNullAndTest_Id(Long testId);
 }

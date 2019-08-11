@@ -5,22 +5,40 @@ import io.swagger.annotations.ApiParam;
 import kz.kasya.bitlab.RXCourse.controllers.BaseController;
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.dtos.TestDto;
+import kz.kasya.bitlab.RXCourse.models.entities.Question;
+import kz.kasya.bitlab.RXCourse.models.entities.QuestionOption;
 import kz.kasya.bitlab.RXCourse.models.entities.Test;
 import kz.kasya.bitlab.RXCourse.models.mappers.TestMapper;
+import kz.kasya.bitlab.RXCourse.models.responses.QuestionOptionResponse;
+import kz.kasya.bitlab.RXCourse.models.responses.QuestionResponse;
+import kz.kasya.bitlab.RXCourse.models.responses.TestResponse;
+import kz.kasya.bitlab.RXCourse.services.QuestionOptionService;
+import kz.kasya.bitlab.RXCourse.services.QuestionService;
 import kz.kasya.bitlab.RXCourse.services.TestService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/tests")
 public class TestController extends BaseController {
     private TestService testService;
+    private QuestionService questionService;
+    private QuestionOptionService questionOptionService;
     private TestMapper testMapper;
 
-    public TestController(TestService testService, TestMapper testMapper) {
+    public TestController(TestService testService,
+                          QuestionService questionService,
+                          QuestionOptionService questionOptionService,
+                          TestMapper testMapper) {
         this.testService = testService;
+        this.questionOptionService = questionOptionService;
+        this.questionService = questionService;
         this.testMapper = testMapper;
     }
 
@@ -64,6 +82,45 @@ public class TestController extends BaseController {
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
         testService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/full/{testId}")
+    @ApiOperation("Вывод фулл теста")
+    public ResponseEntity<?> testQuestions(@PathVariable Long testId) throws ServiceException{
+        Test test = testService.findById(testId);
+        List<Question> questions = questionService.findAllByTestId(test.getId());
+        List<Long> questionIds = new ArrayList<>();
+        for(Question question: questions){
+            questionIds.add(question.getId());
+        }
+        List<QuestionOption> questionOptions = questionOptionService.findAllByQuestionIds(questionIds);
+
+        List<QuestionOptionResponse> questionOptionResponses = questionOptions.stream().map((e) ->
+        QuestionOptionResponse.builder()
+                .id(e.getId())
+                .questionId(e.getQuestion().getId())
+                .optionText(e.getAnswer())
+                .build())
+                    .collect(Collectors.toList());
+
+        TestResponse testResponse = TestResponse.builder()
+                .description(test.getDescription())
+                .id(testId)
+                .questions(questions.stream().map((e) ->
+                        QuestionResponse.builder()
+                                .image(e.getImage())
+                                .score(e.getScore())
+                                .questionText(e.getQuestion())
+                                .id(e.getId())
+                                .build()).collect(Collectors.toList()))
+                .testName(test.getTitle())
+                .build();
+        testResponse.getQuestions().parallelStream().forEach(e -> {
+            e.setQuestionOptions(questionOptionResponses.stream().
+                    filter(qoE -> qoE.getQuestionId().equals(e.getId()))
+                        .collect(Collectors.toList()));
+        });
+        return buildResponse(testResponse, HttpStatus.OK);
     }
 
 
