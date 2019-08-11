@@ -32,10 +32,11 @@ public class CategoryController extends BaseController {
         List<Category> categoryList = categoryService.findAll();
         List<CategoryResponse> categoryResponses = categoryList.stream().map((e) ->
         CategoryResponse.builder()
-        .parentCategoryId(e.getId())
-        .name(e.getName())
-        .build())
-                .collect(Collectors.toList());
+                .parentCategoryId(e.getParentCategory() != null ? e.getParentCategory().getId() : null)
+                .name(e.getName())
+                .id(e.getId())
+                .build())
+                    .collect(Collectors.toList());
         return buildResponse(categoryResponses, HttpStatus.OK);
     }
 }
