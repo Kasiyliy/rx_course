@@ -1,8 +1,8 @@
 -- Roles
-  insert into roles (id, created_at, deleted_at, updated_at, name) values (1, '2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'ROLE_ADMIN');
-  insert into roles (id, created_at, deleted_at, updated_at, name) values (2, '2019-07-14 11:46:01.432630', null, '2019-07-14 11:46:01.432630', 'ROLE_TEACHER');
-  insert into roles (id, created_at, deleted_at, updated_at, name) values (3, '2019-07-14 11:46:05.958924', null, '2019-07-14 11:46:05.958924', 'ROLE_STUDENT');
-  insert into roles (id, created_at, deleted_at, updated_at, name) values (4, '2019-07-14 11:47:04.925222', null, '2019-07-14 11:47:04.925222', 'ROLE_MANAGER');
+  insert into roles (id, created_at, deleted_at, updated_at, name) values (nextval('s_roles'), '2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'ROLE_ADMIN');
+  insert into roles (id, created_at, deleted_at, updated_at, name) values (nextval('s_roles'), '2019-07-14 11:46:01.432630', null, '2019-07-14 11:46:01.432630', 'ROLE_TEACHER');
+  insert into roles (id, created_at, deleted_at, updated_at, name) values (nextval('s_roles'), '2019-07-14 11:46:05.958924', null, '2019-07-14 11:46:05.958924', 'ROLE_STUDENT');
+  insert into roles (id, created_at, deleted_at, updated_at, name) values (nextval('s_roles'), '2019-07-14 11:47:04.925222', null, '2019-07-14 11:47:04.925222', 'ROLE_MANAGER');
 
 
 -- Users
@@ -11,8 +11,8 @@
 
 
 -- Categories
-  INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (1, '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Programming', null);
-  INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (2, '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Java', 1);
+  INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Programming', null);
+  INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Java', 1);
 
 -- Courses
 INSERT INTO courses (id, created_at, deleted_at, updated_at, course_name, description, grade, image, price, teacher_support, user_id, category_id)
