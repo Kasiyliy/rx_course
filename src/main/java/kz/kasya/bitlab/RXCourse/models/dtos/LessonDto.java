@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class LessonDto extends BaseDto {
 
     @ApiModelProperty(notes = "Наименование урока", readOnly = true)
-    private String lessonName;
+    private String name;
 
     @ApiModelProperty(notes = "Очередность урока", readOnly = true)
     private Integer order;

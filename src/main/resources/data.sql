@@ -11,22 +11,33 @@
 
 
 -- Categories
-  INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Programming', null);
-  INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Java', 1);
+INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Programming', null);
+INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id) VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'Java', 1);
+
+INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id)
+VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', NULL, '2019-07-14 18:25:32.856000', 'Python', 1);
+INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id)
+VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', NULL, '2019-07-14 18:25:32.856000', 'C++', 1);
+
+
+INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id)
+VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', NULL, '2019-07-14 18:25:32.856000', 'Marketing', NULL);
+INSERT INTO categories (id, created_at, deleted_at, updated_at, name, parent_category_id)
+VALUES (nextval('s_categories'), '2019-07-14 18:25:32.856000', NULL, '2019-07-14 18:25:32.856000', 'Project Manager', 5);
 
 -- Courses
-INSERT INTO courses (id, created_at, deleted_at, updated_at, course_name, description, grade, image, price, teacher_support, user_id, category_id)
+INSERT INTO courses (id, created_at, deleted_at, updated_at, name, description, grade, image, price, teacher_support, user_id, category_id)
   values (nextval('s_courses'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Математика','Курс математика, прикольно очень',9,'src/koe 4to',500.00,true,1,1);
 
-INSERT INTO courses (id, created_at, deleted_at, updated_at, course_name, description, grade, image, price, teacher_support, user_id, category_id)
+INSERT INTO courses (id, created_at, deleted_at, updated_at, name, description, grade, image, price, teacher_support, user_id, category_id)
  values (nextval('s_courses'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Физика','Курс физика,прикольно очень',10,'src/koe 4to',600.00,true,2, 2);
 
 
 -- Lessons
-INSERT INTO lessons (id, created_at, deleted_at, updated_at, lesson_name, ordering, course_id)
+INSERT INTO lessons (id, created_at, deleted_at, updated_at, name, ordering, course_id)
  values (nextval('s_lessons'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Урок 1 математика', 1, 1);
 
-INSERT INTO lessons (id, created_at, deleted_at, updated_at, lesson_name, ordering, course_id)
+INSERT INTO lessons (id, created_at, deleted_at, updated_at, name, ordering, course_id)
  values (nextval('s_lessons'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Урок 1 физика', 1, 2);
 
 

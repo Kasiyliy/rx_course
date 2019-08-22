@@ -21,9 +21,9 @@ import javax.validation.constraints.NotNull;
 )
 public class Lesson extends AuditModel {
 
-    @Column(name = "lesson_name")
-    @NotNull(message = "lessonName is required")
-    private String lessonName;
+    @Column(name = "name")
+    @NotNull(message = "name is required")
+    private String name;
 
     @Column(name = "ordering")
     @NotNull(message = "order is required")

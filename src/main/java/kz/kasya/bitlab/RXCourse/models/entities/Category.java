@@ -27,6 +27,7 @@ public class Category extends AuditModel {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "parent_category_id", nullable = true)
     private Category parentCategory;
 
 }

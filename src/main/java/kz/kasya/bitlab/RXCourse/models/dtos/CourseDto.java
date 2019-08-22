@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class CourseDto extends BaseDto{
 
     @ApiModelProperty(notes = "Наименование", readOnly = true)
-    private String courseName;
+    private String name;
 
     @ApiModelProperty(notes = "Описание курса", readOnly = true)
     private String description;
