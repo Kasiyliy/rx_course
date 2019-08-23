@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @ApiModel(description = "Таблица которая описывает модель lessonMaterials")
-public class LessonMaterialDto extends BaseDto{
-    @ApiModelProperty(notes = "Тип файла(фото, видео, pdf)", readOnly = true)
-    private String type;
+public class LessonMaterialDto extends BaseDto {
+
+    @ApiModelProperty(notes = "Тип файла(фото, видео, pdf, текст)", readOnly = true)
+    private MaterialTypeDto materialType;
 
     @ApiModelProperty(notes = "Ссылка к файлу", readOnly = true)
     private String url;

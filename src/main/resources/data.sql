@@ -4,6 +4,12 @@
   insert into roles (id, created_at, deleted_at, updated_at, name) values (nextval('s_roles'), '2019-07-14 11:46:05.958924', null, '2019-07-14 11:46:05.958924', 'ROLE_STUDENT');
   insert into roles (id, created_at, deleted_at, updated_at, name) values (nextval('s_roles'), '2019-07-14 11:47:04.925222', null, '2019-07-14 11:47:04.925222', 'ROLE_MANAGER');
 
+-- MaterialTypes
+  insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'VIDEO' , 'Видео');
+  insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:46:01.432630', null, '2019-07-14 11:46:01.432630', 'AUDIO', 'Аудио');
+  insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:46:05.958924', null, '2019-07-14 11:46:05.958924', 'DOCUMENT', 'Документ');
+  insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:47:04.925222', null, '2019-07-14 11:47:04.925222', 'TEXT','Текст');
+
 
 -- Users
   INSERT INTO users (id, created_at, deleted_at, updated_at, first_name, last_name, login, password, phone_number, role_id) VALUES (nextval('s_users'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'admin', 'admin', 'admin', '$2a$10$ucIJJWRSsGpF8LbZZP4GbeYjoKmSN9ADD3W3rA3xNsfJIVaK1Mv2q', '8777-777-77-77', 3);
@@ -34,19 +40,19 @@ INSERT INTO courses (id, created_at, deleted_at, updated_at, name, description, 
 
 
 -- Lessons
-INSERT INTO lessons (id, created_at, deleted_at, updated_at, name, ordering, course_id)
+INSERT INTO lessons (id, created_at, deleted_at, updated_at, name, order_number, course_id)
  values (nextval('s_lessons'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Урок 1 математика', 1, 1);
 
-INSERT INTO lessons (id, created_at, deleted_at, updated_at, name, ordering, course_id)
+INSERT INTO lessons (id, created_at, deleted_at, updated_at, name, order_number, course_id)
  values (nextval('s_lessons'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Урок 1 физика', 1, 2);
 
 
 -- Lesson materials
-INSERT INTO lesson_materials (id, created_at, deleted_at, updated_at, description, type, url, lesson_id)
- values (nextval('s_lesson_materials'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Материал первого урока математики', 'video','url/url', 1);
+INSERT INTO lesson_materials (id, created_at, deleted_at, updated_at, description, material_type_id, url, lesson_id)
+ values (nextval('s_lesson_materials'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Материал первого урока математики', 1,'url/url', 1);
 
-INSERT INTO lesson_materials (id, created_at, deleted_at, updated_at, description, type, url, lesson_id)
- values (nextval('s_lesson_materials'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Материал первого урока физики', 'video', 'url/url', 2);
+INSERT INTO lesson_materials (id, created_at, deleted_at, updated_at, description, material_type_id, url, lesson_id)
+ values (nextval('s_lesson_materials'),'2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'Материал первого урока физики', 1, 'url/url', 2);
 
 
 -- Tests

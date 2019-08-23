@@ -25,9 +25,9 @@ public class Lesson extends AuditModel {
     @NotNull(message = "name is required")
     private String name;
 
-    @Column(name = "ordering")
+    @Column(name = "order_number")
     @NotNull(message = "order is required")
-    private Integer ordering;
+    private Integer order;
 
     @ManyToOne
     @NotNull(message = "course is required")

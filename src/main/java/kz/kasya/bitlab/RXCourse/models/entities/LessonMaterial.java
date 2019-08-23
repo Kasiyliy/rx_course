@@ -19,13 +19,14 @@ import javax.validation.constraints.NotNull;
         initialValue = 1,
         allocationSize = 1
 )
-public class LessonMaterial extends AuditModel{
-    @Column(name = "type")
+public class LessonMaterial extends AuditModel {
+
+    @ManyToOne
+    @JoinColumn(name = "material_type_id")
     @NotNull(message = "type is required")
-    private String type;
+    private MaterialType materialType;
 
     @Column(name = "url")
-    @NotNull(message = "url is required")
     private String url;
 
     @Column(name = "description")
