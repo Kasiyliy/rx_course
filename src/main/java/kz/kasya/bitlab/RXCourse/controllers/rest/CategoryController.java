@@ -36,6 +36,7 @@ public class CategoryController extends BaseController {
                 CategoryResponse.builder()
                         .parentCategoryId(e.getParentCategory() != null ? e.getParentCategory().getId() : null)
                         .name(e.getName())
+                        .parentCategory(e.getParentCategory())
                         .id(e.getId())
                         .build())
                 .collect(Collectors.toList());
