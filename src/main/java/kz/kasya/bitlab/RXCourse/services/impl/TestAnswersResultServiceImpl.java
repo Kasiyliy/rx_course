@@ -6,11 +6,13 @@ import kz.kasya.bitlab.RXCourse.repositories.TestResultsAnswerRepository;
 import kz.kasya.bitlab.RXCourse.services.TestResultsAnswerService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TestAnswersResultServiceImpl implements TestResultsAnswerService {
     private TestResultsAnswerRepository testResultsAnswerRepository;
 

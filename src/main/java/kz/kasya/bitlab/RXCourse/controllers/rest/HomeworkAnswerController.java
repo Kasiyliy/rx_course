@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/homeworkAnswers")
+@RequestMapping("/api/homework_answers")
 public class HomeworkAnswerController extends BaseController{
     private HomeworkAnswerService homeworkAnswerService;
     private HomeworkAnswerMapper homeworkAnswerMapper;

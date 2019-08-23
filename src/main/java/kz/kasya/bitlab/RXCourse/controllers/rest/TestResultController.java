@@ -14,14 +14,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping(path = "/api/test_result")
 public class TestResultController extends BaseController {
+
     private TestResultService testResultService;
     private TestResultMapper testResultMapper;
 
-    public TestResultController(TestResultService testResultService, TestResultMapper testResultMapper){
+    public TestResultController(TestResultService testResultService, TestResultMapper testResultMapper) {
         this.testResultMapper = testResultMapper;
         this.testResultService = testResultService;
     }
+
     @GetMapping
     @ApiOperation("Получение всех ответов тестов в грязном виде")
     public ResponseEntity<?> getAll() {
@@ -52,14 +56,14 @@ public class TestResultController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление ответов теста")
-    public ResponseEntity<?> delete(@RequestBody TestResultDto testResultDto) throws ServiceException{
+    public ResponseEntity<?> delete(@RequestBody TestResultDto testResultDto) throws ServiceException {
         testResultService.delete(testResultMapper.toEntity(testResultDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление ответов теста по ID")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         testResultService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }

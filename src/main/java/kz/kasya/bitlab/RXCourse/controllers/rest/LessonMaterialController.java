@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/lessonMaterials")
+@RequestMapping("/api/lesson_materials")
 public class LessonMaterialController extends BaseController {
     private LessonMaterialService lessonMaterialService;
     private LessonMaterialMapper lessonMaterialMapper;

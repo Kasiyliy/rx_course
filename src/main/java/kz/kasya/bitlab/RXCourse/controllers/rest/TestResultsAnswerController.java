@@ -13,11 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping(path = "/api/test_result/answer")
 public class TestResultsAnswerController extends BaseController {
+
     private TestResultsAnswerService testResultsAnswerService;
     private TestResultsAnswerMapper testResultsAnswerMapper;
 
-    public TestResultsAnswerController(TestResultsAnswerService testResultsAnswerService, TestResultsAnswerMapper testResultsAnswerMapper){
+    public TestResultsAnswerController(TestResultsAnswerService testResultsAnswerService,
+                                       TestResultsAnswerMapper testResultsAnswerMapper) {
         this.testResultsAnswerMapper = testResultsAnswerMapper;
         this.testResultsAnswerService = testResultsAnswerService;
     }
@@ -52,14 +56,14 @@ public class TestResultsAnswerController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление результатов теста")
-    public ResponseEntity<?> delete(@RequestBody TestResultsAnswerDto testResultsAnswerDto) throws ServiceException{
+    public ResponseEntity<?> delete(@RequestBody TestResultsAnswerDto testResultsAnswerDto) throws ServiceException {
         testResultsAnswerService.delete(testResultsAnswerMapper.toEntity(testResultsAnswerDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление результатов теста по ID")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         testResultsAnswerService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
