@@ -8,7 +8,7 @@
   insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:45:49.344428', null, '2019-07-14 11:45:49.344428', 'VIDEO' , 'Видео');
   insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:46:01.432630', null, '2019-07-14 11:46:01.432630', 'AUDIO', 'Аудио');
   insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:46:05.958924', null, '2019-07-14 11:46:05.958924', 'DOCUMENT', 'Документ');
-  insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:47:04.925222', null, '2019-07-14 11:47:04.925222', 'TEXT','Текст');
+  insert into material_types (id, created_at, deleted_at, updated_at, name, value) values (nextval('s_material_types'), '2019-07-14 11:47:04.925222', null, '2019-07-14 11:47:04.925222', 'TEXT','Текст/Картинки');
 
 
 -- Users
