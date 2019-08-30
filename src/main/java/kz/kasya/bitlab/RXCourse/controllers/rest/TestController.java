@@ -44,7 +44,7 @@ public class TestController extends BaseController {
 
     @GetMapping
     @ApiOperation("Получение всех тестов в грязном виде")
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         return buildResponse(testMapper.toDtoList(testService.findAll()), HttpStatus.OK);
     }
 
@@ -52,6 +52,12 @@ public class TestController extends BaseController {
     @ApiOperation("Получение тестов по ID")
     public ResponseEntity<?> getOne(@ApiParam("ID элемента") @PathVariable Long id) throws ServiceException {
         return buildResponse(testMapper.toDto(testService.findById(id)), HttpStatus.OK);
+    }
+
+    @GetMapping("/course/{id}")
+    @ApiOperation("Получение тестов по course ID")
+    public ResponseEntity<?> getAllByCourseId(@ApiParam("ID курса элемента") @PathVariable Long id) throws ServiceException {
+        return buildResponse(testMapper.toDtoList(testService.findAllByCourseId(id)), HttpStatus.OK);
     }
 
     @PostMapping
@@ -72,36 +78,36 @@ public class TestController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление теста")
-    public ResponseEntity<?> delete(@RequestBody TestDto testDto) throws ServiceException{
+    public ResponseEntity<?> delete(@RequestBody TestDto testDto) throws ServiceException {
         testService.delete(testMapper.toEntity(testDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление урока по ID")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         testService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @GetMapping("/full/{testId}")
     @ApiOperation("Вывод фулл теста")
-    public ResponseEntity<?> testQuestions(@PathVariable Long testId) throws ServiceException{
+    public ResponseEntity<?> testQuestions(@PathVariable Long testId) throws ServiceException {
         Test test = testService.findById(testId);
         List<Question> questions = questionService.findAllByTestId(test.getId());
         List<Long> questionIds = new ArrayList<>();
-        for(Question question: questions){
+        for (Question question : questions) {
             questionIds.add(question.getId());
         }
         List<QuestionOption> questionOptions = questionOptionService.findAllByQuestionIds(questionIds);
 
         List<QuestionOptionResponse> questionOptionResponses = questionOptions.stream().map((e) ->
-        QuestionOptionResponse.builder()
-                .id(e.getId())
-                .questionId(e.getQuestion().getId())
-                .optionText(e.getAnswer())
-                .build())
-                    .collect(Collectors.toList());
+                QuestionOptionResponse.builder()
+                        .id(e.getId())
+                        .questionId(e.getQuestion().getId())
+                        .optionText(e.getAnswer())
+                        .build())
+                .collect(Collectors.toList());
 
         TestResponse testResponse = TestResponse.builder()
                 .description(test.getDescription())
@@ -118,12 +124,10 @@ public class TestController extends BaseController {
         testResponse.getQuestions().parallelStream().forEach(e -> {
             e.setQuestionOptions(questionOptionResponses.stream().
                     filter(qoE -> qoE.getQuestionId().equals(e.getId()))
-                        .collect(Collectors.toList()));
+                    .collect(Collectors.toList()));
         });
         return buildResponse(testResponse, HttpStatus.OK);
     }
-
-
 
 
 }

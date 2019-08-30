@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface TestService {
     List<Test> findAll();
+    List<Test> findAllByCourseId(Long courseId);
     Test findById(Long id) throws ServiceException;
     Test save(Test test) throws ServiceException;
     Test update(Test test) throws ServiceException;

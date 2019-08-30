@@ -22,7 +22,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<Test> findAll(){
+    public List<Test> findAll() {
         return testRepository.findAllByDeletedAtIsNull();
     }
 
@@ -36,20 +36,25 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public List<Test> findAllByCourseId(Long courseId) {
+        return testRepository.findAllByDeletedAtIsNullAndCourse_Id(courseId);
+    }
+
+    @Override
     public Test save(Test test) throws ServiceException {
-        if(test.getId() != null){
+        if (test.getId() != null) {
             throw ServiceException.builder()
                     .errorCode(ErrorCode.ALREADY_EXISTS)
                     .message("lesson already exists")
                     .build();
         }
-        return  testRepository.save(test);
+        return testRepository.save(test);
     }
 
 
     @Override
     public Test update(Test test) throws ServiceException {
-        if(test.getId() == null){
+        if (test.getId() == null) {
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
                     .message("lesson is null")
@@ -60,7 +65,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void delete(Test test) throws ServiceException {
-        if(test.getId() == null){
+        if (test.getId() == null) {
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
                     .message("lesson is null")
@@ -73,7 +78,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void deleteById(Long id) throws ServiceException {
-        if(id == null){
+        if (id == null) {
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
                     .message("id is null")
