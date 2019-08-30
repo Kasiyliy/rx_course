@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 public class Like extends AuditModel{
     @Column(name = "scale")
     @NotNull(message = "scale is required")
-    private Integer scale;
+    private double scale;
 
     @ManyToOne
     @NotNull(message = "user is required")

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(description = "Таблица которая описывает модель лайки")
 public class LikeDto extends BaseDto{
     @ApiModelProperty(notes = "Шкала от 1 до 5(оценка курса)", readOnly = true)
-    private Integer scale;
+    private double scale;
 
     @ApiModelProperty(notes = "Студент который поставил оценку", readOnly = true)
     private UserDto user;
