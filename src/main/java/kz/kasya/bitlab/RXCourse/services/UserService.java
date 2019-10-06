@@ -10,6 +10,7 @@ import java.util.Set;
 public interface UserService extends UserDetailsService {
 
     User findById(Long id) throws ServiceException;
+    List<User> findAllByRole(Long id);
     List<User> findAll();
     List<User> findAllWithDeleted();
     User update(User user) throws ServiceException ;

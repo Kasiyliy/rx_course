@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllByRole(Long id) {
+        return userRepository.findAllByRole(id);
+    }
+
+    @Override
     public List<User> findAllWithDeleted() {
         return userRepository.findAll();
     }
