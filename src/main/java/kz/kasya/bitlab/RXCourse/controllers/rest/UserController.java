@@ -54,11 +54,15 @@ public class UserController extends BaseController {
     @ApiOperation("Регистрация пользователей")
     public ResponseEntity<?> add(@RequestBody UserDto userDto) throws ServiceException {
         User user = userMapper.toEntity(userDto);
-        Role role = new Role();
-        role.setId(Role.ROLE_STUDENT_ID);
-        user.setRole(role);
-        user = userService.save(user);
-        return buildResponse(userMapper.toDto(user), HttpStatus.OK);
+        if (userService.findByLogin(user.getLogin()) == null) {
+            Role role = new Role();
+            role.setId(Role.ROLE_STUDENT_ID);
+            user.setRole(role);
+            user = userService.save(user);
+            return buildResponse(userMapper.toDto(user), HttpStatus.OK);
+        } else {
+            return buildResponse("Login already exists", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/validate")

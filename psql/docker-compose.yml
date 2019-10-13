@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  rx_course_postgres:
+    image: postgres:9.6-alpine
+    volumes:
+    - db_data:/var/lib/postgresql/data3
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: rx_course
+      POSTGRES_PASSWORD: rx_course
+      POSTGRES_DB: rx_course
+
+volumes:
+  db_data: {}
+  portainer_data: {}
