@@ -118,7 +118,7 @@ public class TestController extends BaseController {
                         QuestionResponse.builder()
                                 .image(e.getImage())
                                 .score(e.getScore())
-                                .questionText(e.getQuestion())
+                                .question(e.getQuestion())
                                 .id(e.getId())
                                 .build()).collect(Collectors.toList()))
                 .title(test.getTitle())
