@@ -111,6 +111,8 @@ public class TestController extends BaseController {
 
         TestResponse testResponse = TestResponse.builder()
                 .description(test.getDescription())
+                .course(test.getCourse())
+                .lesson(test.getLesson())
                 .id(testId)
                 .questions(questions.stream().map((e) ->
                         QuestionResponse.builder()
@@ -119,7 +121,7 @@ public class TestController extends BaseController {
                                 .questionText(e.getQuestion())
                                 .id(e.getId())
                                 .build()).collect(Collectors.toList()))
-                .testName(test.getTitle())
+                .title(test.getTitle())
                 .build();
         testResponse.getQuestions().parallelStream().forEach(e -> {
             e.setQuestionOptions(questionOptionResponses.stream().
