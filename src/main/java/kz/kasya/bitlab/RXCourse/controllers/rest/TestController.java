@@ -106,6 +106,7 @@ public class TestController extends BaseController {
                         .id(e.getId())
                         .questionId(e.getQuestion().getId())
                         .optionText(e.getAnswer())
+                        .rightAnswer(e.getRightAnswer())
                         .build())
                 .collect(Collectors.toList());
 
