@@ -99,4 +99,10 @@ public class UserController extends BaseController {
                 .build(), HttpStatus.OK);
     }
 
+    @GetMapping("/roles/{roleId}")
+    @ApiOperation("По ролям")
+    public ResponseEntity<?> getByRole(@PathVariable Long roleId){
+        return buildResponse(userMapper.toDtoList(userService.findByRole(roleId)), HttpStatus.OK);
+    }
+
 }

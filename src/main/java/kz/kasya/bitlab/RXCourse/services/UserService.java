@@ -1,6 +1,7 @@
 package kz.kasya.bitlab.RXCourse.services;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
+import kz.kasya.bitlab.RXCourse.models.entities.Role;
 import kz.kasya.bitlab.RXCourse.models.entities.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -18,4 +19,5 @@ public interface UserService extends UserDetailsService {
     void deleteById(Long id) throws ServiceException ;
     Set getAuthority(User user);
     User findByLogin(String login);
+    List<User> findByRole(Long roleId);
 }

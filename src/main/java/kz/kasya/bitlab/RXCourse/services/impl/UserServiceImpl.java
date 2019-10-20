@@ -1,6 +1,7 @@
 package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
+import kz.kasya.bitlab.RXCourse.models.entities.Role;
 import kz.kasya.bitlab.RXCourse.models.entities.User;
 import kz.kasya.bitlab.RXCourse.repositories.UserRepository;
 import kz.kasya.bitlab.RXCourse.services.UserService;
@@ -151,4 +152,8 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority(user));
     }
 
+    @Override
+    public List<User> findByRole(Long roleId) {
+        return userRepository.findAllByDeletedAtIsNullAndRole_Id(roleId);
+    }
 }
