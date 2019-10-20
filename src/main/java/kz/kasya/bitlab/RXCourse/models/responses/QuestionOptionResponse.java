@@ -12,14 +12,16 @@ public class QuestionOptionResponse {
     private Long id;
     private Long questionId;
     private String optionText;
+    private Boolean rightAnswer;
 
     public QuestionOptionResponse() {
     }
 
-    public QuestionOptionResponse(Long id, Long questionId, String optionText) {
+    public QuestionOptionResponse(Long id, Long questionId, String optionText, Boolean rightAnswer) {
         this.id = id;
         this.questionId = questionId;
         this.optionText = optionText;
+        this.rightAnswer = rightAnswer;
     }
 }
 

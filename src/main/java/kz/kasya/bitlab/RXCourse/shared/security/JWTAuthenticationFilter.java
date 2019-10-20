@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
@@ -47,8 +48,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     new UsernamePasswordAuthenticationToken(
                             creds.getLogin(),
                             creds.getPassword(),
-                            Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName())))
+                            user != null ? Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName())) : new ArrayList<>()
+                            )
             );
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

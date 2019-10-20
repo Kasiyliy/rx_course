@@ -13,14 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 public class QuestionResponse {
     private Long id;
-    private String questionText;
+    private String question;
     private String image;
     private Integer score;
     private List<QuestionOptionResponse> questionOptions;
 
-    public QuestionResponse(Long id, String questionText, String image, Integer score, List<QuestionOptionResponse> questionOptions) {
+    public QuestionResponse(Long id, String question, String image, Integer score, List<QuestionOptionResponse> questionOptions) {
         this.id = id;
-        this.questionText = questionText;
+        this.question = question;
         this.image = image;
         this.score = score;
         this.questionOptions = questionOptions;
