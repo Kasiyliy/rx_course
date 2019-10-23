@@ -9,6 +9,7 @@ import kz.kasya.bitlab.RXCourse.models.entities.Like;
 import kz.kasya.bitlab.RXCourse.models.mappers.LikeMapper;
 import kz.kasya.bitlab.RXCourse.services.LikeService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/likes")
+@AllArgsConstructor
 public class LikeController extends BaseController {
     private LikeMapper likeMapper;
     private LikeService likeService;
-
-    @Autowired
-    public LikeController(LikeMapper likeMapper, LikeService likeService) {
-        this.likeMapper = likeMapper;
-        this.likeService = likeService;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех лайков в грязном виде")

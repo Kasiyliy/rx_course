@@ -9,20 +9,17 @@ import kz.kasya.bitlab.RXCourse.models.entities.QuestionOption;
 import kz.kasya.bitlab.RXCourse.models.mappers.QuestionOptionMapper;
 import kz.kasya.bitlab.RXCourse.services.QuestionOptionService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tests/questions/answers")
+@AllArgsConstructor
 public class QuestionOptionController extends BaseController {
     private QuestionOptionService questionOptionService;
     private QuestionOptionMapper questionOptionMapper;
-
-    public QuestionOptionController(QuestionOptionService questionOptionService, QuestionOptionMapper questionOptionMapper) {
-        this.questionOptionService = questionOptionService;
-        this.questionOptionMapper = questionOptionMapper;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех вариантов вопросов в грязном виде")

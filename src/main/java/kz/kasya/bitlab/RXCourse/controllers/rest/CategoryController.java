@@ -10,6 +10,7 @@ import kz.kasya.bitlab.RXCourse.models.mappers.CategoryMapper;
 import kz.kasya.bitlab.RXCourse.models.responses.CategoryResponse;
 import kz.kasya.bitlab.RXCourse.services.CategoryService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +20,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categories")
+@AllArgsConstructor
 public class CategoryController extends BaseController {
 
     private CategoryService categoryService;
     private CategoryMapper categoryMapper;
-
-    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
-        this.categoryService = categoryService;
-        this.categoryMapper = categoryMapper;
-    }
 
     @GetMapping
     public ResponseEntity<?> findAll() {

@@ -4,6 +4,7 @@ import kz.kasya.bitlab.RXCourse.controllers.BaseController;
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.mappers.RoleMapper;
 import kz.kasya.bitlab.RXCourse.services.RoleService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/roles")
+@AllArgsConstructor
 public class RoleController extends BaseController {
 
     private RoleService roleService;
     private RoleMapper roleMapper;
-
-    @Autowired
-    public RoleController(RoleService roleService, RoleMapper roleMapper) {
-        this.roleService = roleService;
-        this.roleMapper = roleMapper;
-    }
 
     @GetMapping
     public ResponseEntity<?> getAll() {

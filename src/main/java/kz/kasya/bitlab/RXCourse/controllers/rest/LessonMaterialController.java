@@ -9,6 +9,7 @@ import kz.kasya.bitlab.RXCourse.models.entities.LessonMaterial;
 import kz.kasya.bitlab.RXCourse.models.mappers.LessonMaterialMapper;
 import kz.kasya.bitlab.RXCourse.services.LessonMaterialService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/lesson_materials")
+@AllArgsConstructor
 public class LessonMaterialController extends BaseController {
     private LessonMaterialService lessonMaterialService;
     private LessonMaterialMapper lessonMaterialMapper;
-
-    @Autowired
-    public LessonMaterialController(LessonMaterialService lessonMaterialService, LessonMaterialMapper lessonMaterialMapper) {
-        this.lessonMaterialService = lessonMaterialService;
-        this.lessonMaterialMapper = lessonMaterialMapper;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех lessonMaterials в грязном виде")
