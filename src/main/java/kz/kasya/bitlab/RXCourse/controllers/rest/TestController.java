@@ -16,6 +16,7 @@ import kz.kasya.bitlab.RXCourse.services.QuestionOptionService;
 import kz.kasya.bitlab.RXCourse.services.QuestionService;
 import kz.kasya.bitlab.RXCourse.services.TestService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +27,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/tests")
+@AllArgsConstructor
 public class TestController extends BaseController {
-    private TestService testService;
-    private QuestionService questionService;
-    private QuestionOptionService questionOptionService;
-    private TestMapper testMapper;
 
-    public TestController(TestService testService,
-                          QuestionService questionService,
-                          QuestionOptionService questionOptionService,
-                          TestMapper testMapper) {
-        this.testService = testService;
-        this.questionOptionService = questionOptionService;
-        this.questionService = questionService;
-        this.testMapper = testMapper;
-    }
+    private QuestionOptionService questionOptionService;
+    private QuestionService questionService;
+    private TestService testService;
+    private TestMapper testMapper;
 
     @GetMapping
     @ApiOperation("Получение всех тестов в грязном виде")

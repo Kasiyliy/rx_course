@@ -9,22 +9,18 @@ import kz.kasya.bitlab.RXCourse.models.entities.TestResultsAnswer;
 import kz.kasya.bitlab.RXCourse.models.mappers.TestResultsAnswerMapper;
 import kz.kasya.bitlab.RXCourse.services.TestResultsAnswerService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/test_result/answer")
+@AllArgsConstructor
 public class TestResultsAnswerController extends BaseController {
 
     private TestResultsAnswerService testResultsAnswerService;
     private TestResultsAnswerMapper testResultsAnswerMapper;
-
-    public TestResultsAnswerController(TestResultsAnswerService testResultsAnswerService,
-                                       TestResultsAnswerMapper testResultsAnswerMapper) {
-        this.testResultsAnswerMapper = testResultsAnswerMapper;
-        this.testResultsAnswerService = testResultsAnswerService;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех результатов тестов в грязном виде")

@@ -10,6 +10,7 @@ import kz.kasya.bitlab.RXCourse.models.mappers.HomeworkAnswerMapper;
 import kz.kasya.bitlab.RXCourse.repositories.HomeworkAnswerRepository;
 import kz.kasya.bitlab.RXCourse.services.HomeworkAnswerService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/homework_answers")
+@AllArgsConstructor
 public class HomeworkAnswerController extends BaseController{
     private HomeworkAnswerService homeworkAnswerService;
     private HomeworkAnswerMapper homeworkAnswerMapper;
-
-    @Autowired
-    public HomeworkAnswerController(HomeworkAnswerService homeworkAnswerService, HomeworkAnswerMapper homeworkAnswerMapper) {
-        this.homeworkAnswerService = homeworkAnswerService;
-        this.homeworkAnswerMapper = homeworkAnswerMapper;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех домашних заданий в грязном виде")

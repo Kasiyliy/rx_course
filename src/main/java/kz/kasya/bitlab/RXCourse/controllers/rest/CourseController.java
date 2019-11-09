@@ -10,11 +10,9 @@ import kz.kasya.bitlab.RXCourse.models.mappers.CourseMapper;
 import kz.kasya.bitlab.RXCourse.services.CourseService;
 import kz.kasya.bitlab.RXCourse.services.UserService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,20 +20,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/courses")
+@AllArgsConstructor
 public class CourseController extends BaseController {
 
     private CourseService courseService;
     private CourseMapper courseMapper;
     private UserService userService;
-
-    @Autowired
-    public CourseController(UserService userService,
-                            CourseService courseService,
-                            CourseMapper courseMapper) {
-        this.userService = userService;
-        this.courseService = courseService;
-        this.courseMapper = courseMapper;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех курсы в грязном виде")

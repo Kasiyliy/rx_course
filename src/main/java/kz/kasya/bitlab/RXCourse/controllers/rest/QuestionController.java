@@ -12,6 +12,7 @@ import kz.kasya.bitlab.RXCourse.models.requests.QuestionRequest;
 import kz.kasya.bitlab.RXCourse.models.requests.TestRequestQuestions;
 import kz.kasya.bitlab.RXCourse.services.QuestionService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,15 +21,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tests/questions")
+@AllArgsConstructor
 public class QuestionController extends BaseController {
     private QuestionService questionService;
     private QuestionMapper questionMapper;
     private ObjectMapper objectMapper;
-
-    public QuestionController(QuestionService questionService, QuestionMapper questionMapper) {
-        this.questionService = questionService;
-        this.questionMapper = questionMapper;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех вопросов в грязном виде")

@@ -4,6 +4,7 @@ import kz.kasya.bitlab.RXCourse.controllers.BaseController;
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.mappers.MaterialTypeMapper;
 import kz.kasya.bitlab.RXCourse.services.MaterialTypeService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/material_types")
+@AllArgsConstructor
 public class MaterialTypeController extends BaseController {
 
     private MaterialTypeService materialTypeService;
     private MaterialTypeMapper materialTypeMapper;
 
-    @Autowired
-    public MaterialTypeController(MaterialTypeService materialTypeService, MaterialTypeMapper materialTypeMapper) {
-        this.materialTypeService = materialTypeService;
-        this.materialTypeMapper = materialTypeMapper;
-    }
 
     @GetMapping
     public ResponseEntity<?> getAll() {

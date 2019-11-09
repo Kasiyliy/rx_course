@@ -12,7 +12,7 @@ import kz.kasya.bitlab.RXCourse.models.mappers.UserMapper;
 import kz.kasya.bitlab.RXCourse.services.UserService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,16 +21,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 @Api(description = "Точка входа для распознования")
+@AllArgsConstructor
 public class UserController extends BaseController {
 
     private UserService userService;
     private UserMapper userMapper;
-
-    @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-    }
 
     @GetMapping
     @ApiOperation("Получение всех пользователей в грязном виде")
