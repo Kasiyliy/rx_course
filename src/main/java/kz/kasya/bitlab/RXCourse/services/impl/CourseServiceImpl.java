@@ -104,4 +104,19 @@ public class CourseServiceImpl implements CourseService {
             sort = Sort.by("id");
         }
         return courseRepository.findAllPageableByDeletedAtIsNull(PageRequest.of(page.orElse(0),size.orElse(5),sort));}
+
+    @Override
+    public Page<Course> findAllPageableByUserId(Optional<Integer> page, Optional<Integer> size, Optional<String[]> sortBy, Long userId) {
+        Sort sort = null;
+        if(sortBy.isPresent()){
+            String[] sorters = sortBy.get();
+            List<Sort.Order> sorts = Arrays.stream(sorters)
+                    .map(s -> s.split("-")[0].trim().equalsIgnoreCase("asc")
+                            ? Sort.Order.asc( s.split("-")[1]) : Sort.Order.desc( s.split("-")[1]))
+                    .collect(Collectors.toList());
+            sort = Sort.by(sorts);
+        }else{
+            sort = Sort.by("id");
+        }
+        return courseRepository.findAllPageableByUser_idAndDeletedAtIsNull(PageRequest.of(page.orElse(0),size.orElse(5),sort), userId);}
 }

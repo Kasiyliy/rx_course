@@ -16,5 +16,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
     List<Course> findAllByDeletedAtIsNull();
 
     Page<Course> findAllPageableByDeletedAtIsNull(Pageable pageable);
+    Page<Course> findAllPageableByUser_idAndDeletedAtIsNull(Pageable pageable,Long userId);
+
 
 }

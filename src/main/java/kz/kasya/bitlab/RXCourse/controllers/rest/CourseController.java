@@ -6,6 +6,7 @@ import kz.kasya.bitlab.RXCourse.controllers.BaseController;
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.dtos.CourseDto;
 import kz.kasya.bitlab.RXCourse.models.entities.Course;
+import kz.kasya.bitlab.RXCourse.models.entities.User;
 import kz.kasya.bitlab.RXCourse.models.mappers.CourseMapper;
 import kz.kasya.bitlab.RXCourse.services.CourseService;
 import kz.kasya.bitlab.RXCourse.services.UserService;
@@ -13,6 +14,8 @@ import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -77,6 +80,14 @@ public class CourseController extends BaseController {
         return buildResponse(courseService.findAllPageable(page, size, sortBy), HttpStatus.OK);
     }
 
+    @GetMapping("/pagination/my")
+    @ApiOperation("Получение всех курсы в грязном виде")
+    public ResponseEntity<?> getAllPaginationByUserId(Authentication authentication, @RequestParam Optional<Integer> page,
+                                                      @RequestParam Optional<Integer> size,
+                                                      @RequestParam Optional<String[]> sortBy) {
+        User user = userService.findByLogin(authentication.getName());
+        return buildResponse(courseService.findAllPageableByUserId(page, size, sortBy, user.getId()), HttpStatus.OK);
+    }
 
 
 }

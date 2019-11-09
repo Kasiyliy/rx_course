@@ -17,5 +17,9 @@ public interface CourseService {
     Page<Course> findAllPageable(Optional<Integer> page,
                                  Optional<Integer> size,
                                  Optional<String[]> sortBy);
+    Page<Course> findAllPageableByUserId(Optional<Integer> page,
+                                 Optional<Integer> size,
+                                 Optional<String[]> sortBy,
+                                         Long userId);
 
 }
