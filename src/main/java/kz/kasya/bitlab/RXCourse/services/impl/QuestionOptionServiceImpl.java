@@ -87,4 +87,9 @@ public class QuestionOptionServiceImpl implements QuestionOptionService {
     public List<QuestionOption> findAllByQuestionIds(List<Long> ids) throws ServiceException {
         return questionOptionRepository.findAllByDeletedAtNullAndQuestion_IdIn(ids);
     }
+
+    @Override
+    public List<QuestionOption> findAllByQuestionId(Long id) throws ServiceException {
+        return null;
+    }
 }

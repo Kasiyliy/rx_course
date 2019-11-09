@@ -13,4 +13,5 @@ public interface QuestionOptionService {
     void delete(QuestionOption questionOption) throws ServiceException ;
     void deleteById(Long id) throws ServiceException ;
     List<QuestionOption> findAllByQuestionIds(List<Long> ids) throws ServiceException;
+    List<QuestionOption> findAllByQuestionId(Long id) throws ServiceException;
 }

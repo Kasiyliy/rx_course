@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/tests/questions/answers")
 @AllArgsConstructor
 public class QuestionOptionController extends BaseController {
+
     private QuestionOptionService questionOptionService;
     private QuestionOptionMapper questionOptionMapper;
 
@@ -26,6 +27,12 @@ public class QuestionOptionController extends BaseController {
     public ResponseEntity<?> getAll() {
         return buildResponse(questionOptionMapper.toDtoList(questionOptionService.findAll()), HttpStatus.OK);
     }
+
+//    @GetMapping("/by-question-id/{id}")
+//    @ApiOperation("Получение всех вариантов вопросов в грязном виде")
+//    public ResponseEntity<?> getAllByQuestionId(@PathVariable Long id) {
+//        return buildResponse(questionOptionMapper.toDtoList(questionOptionService.findAllByQuestionIds()), HttpStatus.OK);
+//    }
 
     @GetMapping("{id}")
     @ApiOperation("Получение вариантов вопроса по ID")
