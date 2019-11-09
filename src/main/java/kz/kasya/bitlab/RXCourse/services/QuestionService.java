@@ -2,6 +2,7 @@ package kz.kasya.bitlab.RXCourse.services;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.entities.Question;
+import kz.kasya.bitlab.RXCourse.models.requests.QuestionRequest;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ public interface QuestionService {
     Question update(Question question) throws ServiceException;
     void delete(Question question) throws ServiceException ;
     void deleteById(Long id) throws ServiceException ;
-    List<Question> findAllByTestId(Long id) throws ServiceException ;
+    List<Question> findAllByTestId(Long id) throws ServiceException;
+    void addQuestions(List<QuestionRequest> questionRequests, Long id) throws ServiceException;
 }

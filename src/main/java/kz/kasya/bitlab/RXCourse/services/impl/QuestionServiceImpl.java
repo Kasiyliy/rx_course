@@ -2,7 +2,12 @@ package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.entities.Question;
+import kz.kasya.bitlab.RXCourse.models.entities.QuestionOption;
+import kz.kasya.bitlab.RXCourse.models.entities.Test;
+import kz.kasya.bitlab.RXCourse.models.requests.OptionRequest;
+import kz.kasya.bitlab.RXCourse.models.requests.QuestionRequest;
 import kz.kasya.bitlab.RXCourse.repositories.QuestionRepository;
+import kz.kasya.bitlab.RXCourse.services.QuestionOptionService;
 import kz.kasya.bitlab.RXCourse.services.QuestionService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,9 @@ import java.util.Optional;
 @Service
 public class QuestionServiceImpl implements QuestionService {
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private QuestionOptionService questionOptionService;
 
     @Autowired
     public QuestionServiceImpl(QuestionRepository questionRepository) {
@@ -86,5 +94,25 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Question> findAllByTestId(Long id) throws ServiceException {
         return questionRepository.findAllByDeletedAtNullAndTest_Id(id);
+    }
+
+    @Override
+    public void addQuestions(List<QuestionRequest> questionRequests, Long testId) throws ServiceException{
+        Test test = new Test();
+        test.setId(testId);
+        for (QuestionRequest request: questionRequests) {
+            Question question = new Question();
+            question.setQuestion(request.getQuestion());
+            question.setScore(request.getScore());
+            question.setTest(test);
+            questionRepository.save(question);
+            for(OptionRequest optionRequest: request.getOptions()){
+                QuestionOption questionOption = new QuestionOption();
+                questionOption.setQuestion(question);
+                questionOption.setAnswer(optionRequest.getOptionText());
+                questionOption.setRightAnswer(optionRequest.getRightAnswer());
+                questionOptionService.save(questionOption);
+            }
+        }
     }
 }
