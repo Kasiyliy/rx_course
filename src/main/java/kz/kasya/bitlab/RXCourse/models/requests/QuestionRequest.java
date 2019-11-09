@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class QuestionRequest {
+    private Long id;
     private String question;
     private String image;
     private Integer score;

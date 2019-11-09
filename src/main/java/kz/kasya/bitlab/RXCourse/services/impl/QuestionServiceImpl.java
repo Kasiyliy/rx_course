@@ -101,13 +101,25 @@ public class QuestionServiceImpl implements QuestionService {
         Test test = new Test();
         test.setId(testId);
         for (QuestionRequest request: questionRequests) {
-            Question question = new Question();
+            Question question;
+            if(request.getId() == null) {
+                 question = new Question();
+            }
+            else {
+                 question = questionRepository.getOne(request.getId());
+            }
             question.setQuestion(request.getQuestion());
             question.setScore(request.getScore());
             question.setTest(test);
             questionRepository.save(question);
             for(OptionRequest optionRequest: request.getOptions()){
-                QuestionOption questionOption = new QuestionOption();
+                QuestionOption questionOption;
+                if(optionRequest.getId() == null){
+                     questionOption = new QuestionOption();
+                }
+                else {
+                    questionOption = questionOptionService.findById(optionRequest.getId());
+                }
                 questionOption.setQuestion(question);
                 questionOption.setAnswer(optionRequest.getOptionText());
                 questionOption.setRightAnswer(optionRequest.getRightAnswer());
