@@ -11,6 +11,6 @@ public interface TestService {
     Test findById(Long id) throws ServiceException;
     Test save(Test test) throws ServiceException;
     Test update(Test test) throws ServiceException;
-    void delete(Test test) throws ServiceException ;
-    void deleteById(Long id) throws ServiceException ;
+    void delete(Test test) throws ServiceException;
+    void deleteById(Long id) throws ServiceException;
 }

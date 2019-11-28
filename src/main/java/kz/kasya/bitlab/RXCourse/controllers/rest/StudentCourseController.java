@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/student/course")
 @AllArgsConstructor
@@ -25,11 +27,13 @@ public class StudentCourseController extends BaseController {
     private StudentCourseMapper studentCourseMapper;
     private UserService userService;
 
-    @GetMapping("my")
+    @GetMapping
     @ApiOperation("Получение по userId")
-    public ResponseEntity<?> getAllByUserId(Authentication authentication) throws ServiceException {
+    public ResponseEntity<?> getAllByUserId(Authentication authentication,@RequestParam Optional<Integer> page,
+                                            @RequestParam Optional<Integer> size,
+                                            @RequestParam Optional<String[]> sortBy) throws ServiceException {
         User user = userService.findByLogin(authentication.getName());
-        return buildResponse(studentCourseMapper.toDtoList(studentCourseService.findByUserId(user.getId())), HttpStatus.OK);
+        return buildResponse(studentCourseService.findAllPageableByUserId(page, size, sortBy, user.getId()), HttpStatus.OK);
     }
 
     @PostMapping

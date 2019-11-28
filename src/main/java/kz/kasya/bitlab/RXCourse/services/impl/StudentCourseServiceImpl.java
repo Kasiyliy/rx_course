@@ -7,9 +7,15 @@ import kz.kasya.bitlab.RXCourse.repositories.TestResultRepository;
 import kz.kasya.bitlab.RXCourse.services.StudentCourseService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentCourseServiceImpl implements StudentCourseService {
@@ -34,4 +40,20 @@ public class StudentCourseServiceImpl implements StudentCourseService {
     public List<StudentCourse> findByUserId(Long id) {
         return studentCourseRepository.findByUser_Id(id);
     }
+
+    @Override
+    public Page<StudentCourse> findAllPageableByUserId(Optional<Integer> page, Optional<Integer> size, Optional<String[]> sortBy, Long userId) {
+        Sort sort = null;
+        if(sortBy.isPresent()){
+            String[] sorters = sortBy.get();
+            List<Sort.Order> sorts = Arrays.stream(sorters)
+                    .map(s -> s.split("-")[0].trim().equalsIgnoreCase("asc")
+                            ? Sort.Order.asc( s.split("-")[1]) : Sort.Order.desc( s.split("-")[1]))
+                    .collect(Collectors.toList());
+            sort = Sort.by(sorts);
+        }else{
+            sort = Sort.by("id");
+        }
+        return studentCourseRepository.findAllPageableByUser_idAndDeletedAtIsNull(PageRequest.of(page.orElse(0),size.orElse(5),sort), userId);
+}
 }
