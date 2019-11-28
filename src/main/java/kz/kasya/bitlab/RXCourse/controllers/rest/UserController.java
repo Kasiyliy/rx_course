@@ -9,6 +9,7 @@ import kz.kasya.bitlab.RXCourse.models.dtos.UserDto;
 import kz.kasya.bitlab.RXCourse.models.entities.Role;
 import kz.kasya.bitlab.RXCourse.models.entities.User;
 import kz.kasya.bitlab.RXCourse.models.mappers.UserMapper;
+import kz.kasya.bitlab.RXCourse.models.requests.UserRoleUpdateRequest;
 import kz.kasya.bitlab.RXCourse.services.UserService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -100,8 +102,13 @@ public class UserController extends BaseController {
 
     @GetMapping("/roles/{roleId}")
     @ApiOperation("По ролям")
-    public ResponseEntity<?> getByRole(@PathVariable Long roleId){
+    public ResponseEntity<?> getByRole(@PathVariable Long roleId) {
         return buildResponse(userMapper.toDtoList(userService.findByRole(roleId)), HttpStatus.OK);
+    }
+
+    @PostMapping("/update/role")
+    public ResponseEntity<?> updateRoleOfUser(@RequestBody @Validated UserRoleUpdateRequest userRoleUpdateRequest) {
+        return buildSuccessResponse(userService.changeUserRole(userRoleUpdateRequest.getUserId(), userRoleUpdateRequest.getRoleId()));
     }
 
 }
