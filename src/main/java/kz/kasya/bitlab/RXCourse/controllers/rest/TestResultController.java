@@ -13,6 +13,7 @@ import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,12 +38,14 @@ public class TestResultController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление ответов теста")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> add(@RequestBody TestResultDto testResultDto) throws ServiceException {
         TestResult testResult = testResultMapper.toEntity(testResultDto);
         return buildResponse(testResultMapper.toDto(testResultService.save(testResult)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> update(@RequestBody TestResultDto testResultDto) throws ServiceException {
         TestResult testResult = testResultService.update(testResultMapper.toEntity(testResultDto));
         return buildResponse(SuccessResponse.builder()
@@ -53,6 +56,7 @@ public class TestResultController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление ответов теста")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> delete(@RequestBody TestResultDto testResultDto) throws ServiceException {
         testResultService.delete(testResultMapper.toEntity(testResultDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -60,6 +64,7 @@ public class TestResultController extends BaseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление ответов теста по ID")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         testResultService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);

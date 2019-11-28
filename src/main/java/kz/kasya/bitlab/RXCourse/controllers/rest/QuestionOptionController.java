@@ -12,6 +12,7 @@ import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,12 +43,14 @@ public class QuestionOptionController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление вариантов вопроса")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> add(@RequestBody QuestionOptionDto questionOptionDto) throws ServiceException {
         QuestionOption questionOption = questionOptionMapper.toEntity(questionOptionDto);
         return buildResponse(questionOptionMapper.toDto(questionOptionService.save(questionOption)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> update(@RequestBody QuestionOptionDto questionOptionDto) throws ServiceException {
         QuestionOption questionOption = questionOptionService.update(questionOptionMapper.toEntity(questionOptionDto));
         return buildResponse(SuccessResponse.builder()
@@ -59,6 +62,7 @@ public class QuestionOptionController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление вариантов вопроса")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> delete(@RequestBody QuestionOptionDto questionOptionDto) throws ServiceException{
         questionOptionService.delete(questionOptionMapper.toEntity(questionOptionDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -66,6 +70,7 @@ public class QuestionOptionController extends BaseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление вариантов вопроса по ID")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
         questionOptionService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);

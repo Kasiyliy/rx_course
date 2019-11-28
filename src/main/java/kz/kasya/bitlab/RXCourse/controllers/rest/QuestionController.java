@@ -15,6 +15,7 @@ import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,12 +42,14 @@ public class QuestionController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление вопроса")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> add(@RequestBody QuestionDto questionDto) throws ServiceException {
         Question question = questionMapper.toEntity(questionDto);
         return buildResponse(questionMapper.toDto(questionService.save(question)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> update(@RequestBody QuestionDto questionDto) throws ServiceException {
         Question question = questionService.update(questionMapper.toEntity(questionDto));
         return buildResponse(SuccessResponse.builder()
@@ -58,6 +61,7 @@ public class QuestionController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление вопроса")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> delete(@RequestBody QuestionDto questionDto) throws ServiceException{
         questionService.delete(questionMapper.toEntity(questionDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -65,6 +69,7 @@ public class QuestionController extends BaseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление вопроса по ID")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
         questionService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
