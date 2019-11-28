@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ServiceException extends Exception{
+public class ServiceException extends RuntimeException{
 
     protected String message;
     protected ErrorCode errorCode;

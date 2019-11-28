@@ -12,8 +12,8 @@
 
 
 -- Users
-  INSERT INTO users (id, created_at, deleted_at, updated_at, first_name, last_name, login, password, phone_number, role_id) VALUES (nextval('s_users'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'admin', 'admin', 'admin', '$2a$10$ucIJJWRSsGpF8LbZZP4GbeYjoKmSN9ADD3W3rA3xNsfJIVaK1Mv2q', '8777-777-77-77', 3);
-  INSERT INTO users (id, created_at, deleted_at, updated_at, first_name, last_name, login, password, phone_number, role_id) VALUES (nextval('s_users'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'admin2', 'admin2', 'admin2', '$2a$10$ucIJJWRSsGpF8LbZZP4GbeYjoKmSN9ADD3W3rA3xNsfJIVaK1Mv2q', '8777-777-77-77', 3);
+  INSERT INTO users (id, created_at, deleted_at, updated_at, first_name, last_name, login, password, phone_number, role_id) VALUES (nextval('s_users'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'admin', 'admin', 'admin', '$2a$10$ucIJJWRSsGpF8LbZZP4GbeYjoKmSN9ADD3W3rA3xNsfJIVaK1Mv2q', '8777-777-77-77', 1);
+  INSERT INTO users (id, created_at, deleted_at, updated_at, first_name, last_name, login, password, phone_number, role_id) VALUES (nextval('s_users'), '2019-07-14 18:25:32.856000', null, '2019-07-14 18:25:32.856000', 'admin2', 'admin2', 'admin2', '$2a$10$ucIJJWRSsGpF8LbZZP4GbeYjoKmSN9ADD3W3rA3xNsfJIVaK1Mv2q', '8777-777-77-77', 1);
 
 
 -- Categories

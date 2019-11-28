@@ -23,4 +23,8 @@ public class BaseController {
                 .build();
     }
 
+    protected ResponseEntity<?> buildSuccessResponse(Object data){
+        return new ResponseEntity<>(data , HttpStatus.OK);
+    }
+
 }

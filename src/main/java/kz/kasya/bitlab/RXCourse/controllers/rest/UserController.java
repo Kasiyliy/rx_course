@@ -9,14 +9,19 @@ import kz.kasya.bitlab.RXCourse.models.dtos.UserDto;
 import kz.kasya.bitlab.RXCourse.models.entities.Role;
 import kz.kasya.bitlab.RXCourse.models.entities.User;
 import kz.kasya.bitlab.RXCourse.models.mappers.UserMapper;
+import kz.kasya.bitlab.RXCourse.models.requests.UserRoleUpdateRequest;
 import kz.kasya.bitlab.RXCourse.services.UserService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/users")
@@ -80,28 +85,50 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
-    public ResponseEntity<?> update(@RequestBody UserDto userDto) throws ServiceException {
-        User user = userService.update(userMapper.toEntity(userDto));
-        return buildResponse(SuccessResponse.builder()
-                .message("updated")
-                .data(userMapper.toDto(user))
-                .build(), HttpStatus.OK);
+    public ResponseEntity<?> update(@RequestBody UserDto userDto, Authentication authentication)
+            throws ServiceException {
+        User currentUser = userService.getUserByAuthentication(authentication);
+        if (Objects.equals(currentUser.getId(), userDto.getId()) || currentUser.isAdmin()) {
+
+            User user = userService.update(userMapper.toEntity(userDto));
+            return buildResponse(userMapper.toDto(user), HttpStatus.OK);
+        } else {
+            throw new ServiceException("Unauthorized", ErrorCode.ACCESS_DENIED);
+        }
+
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, path = "/partial")
+    public ResponseEntity<?> partialUpdate(@RequestBody UserDto userDto, Authentication authentication)
+            throws ServiceException {
+        User currentUser = userService.getUserByAuthentication(authentication);
+        if (Objects.equals(currentUser.getId(), userDto.getId()) || currentUser.isAdmin()) {
+            User user = userService.partialUpdate(userMapper.toEntity(userDto), currentUser.isAdmin());
+            return buildResponse(userMapper.toDto(user), HttpStatus.OK);
+        } else {
+            throw new ServiceException("Unauthorized", ErrorCode.ACCESS_DENIED);
+        }
+
     }
 
     @PostMapping("/current")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) throws ServiceException {
-        String login = authentication.getName();
-        User user = userService.findByLogin(login);
         return buildResponse(SuccessResponse.builder()
                 .message("found")
-                .data(userMapper.toDto(user))
+                .data(userMapper.toDto(userService.getUserByAuthentication(authentication)))
                 .build(), HttpStatus.OK);
     }
 
     @GetMapping("/roles/{roleId}")
     @ApiOperation("По ролям")
-    public ResponseEntity<?> getByRole(@PathVariable Long roleId){
+    public ResponseEntity<?> getByRole(@PathVariable Long roleId) {
         return buildResponse(userMapper.toDtoList(userService.findByRole(roleId)), HttpStatus.OK);
+    }
+
+    @PostMapping("/update/role")
+    public ResponseEntity<?> updateRoleOfUser(@RequestBody @Validated UserRoleUpdateRequest userRoleUpdateRequest) {
+        return buildSuccessResponse(
+                userService.changeUserRole(userRoleUpdateRequest.getUserId(), userRoleUpdateRequest.getRoleId()));
     }
 
 }
