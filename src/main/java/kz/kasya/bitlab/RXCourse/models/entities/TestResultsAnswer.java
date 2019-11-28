@@ -9,13 +9,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "test_results")
+@Table(name = "test_result_answers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(
         name = "seq",
-        sequenceName = "s_test_results",
+        sequenceName = "s_test_result_answers",
         initialValue = 1,
         allocationSize = 1
 )
