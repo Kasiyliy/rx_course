@@ -3,6 +3,7 @@ package kz.kasya.bitlab.RXCourse.services;
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.entities.Role;
 import kz.kasya.bitlab.RXCourse.models.entities.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -33,4 +34,9 @@ public interface UserService extends UserDetailsService {
     List<User> findByRole(Long roleId);
 
     User changeUserRole(Long userId, Long roleId);
+
+    User getUserByAuthentication(Authentication authentication);
+
+    User partialUpdate(User user, boolean isAdmin) throws ServiceException;
+
 }

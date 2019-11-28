@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -146,5 +147,23 @@ public class UserServiceImpl implements UserService {
         }
         user.setRole(role);
         return save(user);
+    }
+
+    @Override
+    public User getUserByAuthentication(Authentication authentication) {
+        return findByLogin(authentication.getName());
+    }
+
+    @Override
+    public User partialUpdate(User user, boolean isAdmin) throws ServiceException {
+        User userToUpdate = findById(user.getId());
+
+        if (isAdmin) {
+            userToUpdate.setRole(user.getRole());
+        }
+        userToUpdate.setFirstName(user.getFirstName());
+        userToUpdate.setLastName(user.getLastName());
+
+        return userRepository.save(userToUpdate);
     }
 }

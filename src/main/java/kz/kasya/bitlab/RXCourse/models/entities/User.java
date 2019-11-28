@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 
 @Entity
@@ -46,4 +47,24 @@ public class User extends AuditModel {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Role role;
 
+    @Transient
+    public boolean isAdmin() {
+        return Objects.nonNull(this.role) && Objects.equals(this.role.getId(), Role.ROLE_ADMIN_ID);
+    }
+
+
+    @Transient
+    public boolean isStudent() {
+        return Objects.nonNull(this.role) && Objects.equals(this.role.getId(), Role.ROLE_STUDENT_ID);
+    }
+
+    @Transient
+    public boolean isTeacher() {
+        return Objects.nonNull(this.role) && Objects.equals(this.role.getId(), Role.ROLE_TEACHER_ID);
+    }
+
+    @Transient
+    public boolean isManager() {
+        return Objects.nonNull(this.role) && Objects.equals(this.role.getId(), Role.ROLE_MANAGER_ID);
+    }
 }
