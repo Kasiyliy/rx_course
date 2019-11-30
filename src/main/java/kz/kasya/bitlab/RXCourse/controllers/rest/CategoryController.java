@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/categories")
 @AllArgsConstructor
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class CategoryController extends BaseController {
 
     private CategoryService categoryService;
@@ -56,6 +55,7 @@ public class CategoryController extends BaseController {
 
     @PostMapping
     @ApiOperation("Создание категории")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> add(@RequestBody CategoryDto categoryDto) throws ServiceException {
         Category category = categoryMapper.toEntity(categoryDto);
         category = categoryService.save(category);
@@ -64,18 +64,23 @@ public class CategoryController extends BaseController {
 
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<?> delete(@PathVariable Long id) throws ServiceException {
         categoryService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @DeleteMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<?> delete(@RequestBody CategoryDto categoryDto) throws ServiceException {
         categoryService.delete(categoryMapper.toEntity(categoryDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> update(@RequestBody CategoryDto categoryDto) throws ServiceException {
         Category category = categoryService.update(categoryMapper.toEntity(categoryDto));
         return buildResponse(SuccessResponse.builder()
