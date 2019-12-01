@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LessonMaterialRepository extends JpaRepository<LessonMaterial,Long> {
+public interface LessonMaterialRepository extends JpaRepository<LessonMaterial, Long> {
+
     List<LessonMaterial> findAllByDeletedAtIsNull();
-    List<LessonMaterial> findAllByLessonId(Long id);
+
+    List<LessonMaterial> findAllByLessonIdAndDeletedAtIsNull(Long id);
 }
