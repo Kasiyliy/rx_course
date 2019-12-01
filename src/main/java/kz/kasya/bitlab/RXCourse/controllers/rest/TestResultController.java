@@ -5,33 +5,24 @@ import io.swagger.annotations.ApiParam;
 import kz.kasya.bitlab.RXCourse.controllers.BaseController;
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.dtos.TestResultDto;
-import kz.kasya.bitlab.RXCourse.models.entities.Test;
 import kz.kasya.bitlab.RXCourse.models.entities.TestResult;
-import kz.kasya.bitlab.RXCourse.models.entities.TestResultsAnswer;
-import kz.kasya.bitlab.RXCourse.models.entities.User;
 import kz.kasya.bitlab.RXCourse.models.mappers.TestMapper;
 import kz.kasya.bitlab.RXCourse.models.mappers.TestResultMapper;
 import kz.kasya.bitlab.RXCourse.services.TestResultService;
-import kz.kasya.bitlab.RXCourse.services.TestResultsAnswerService;
-import kz.kasya.bitlab.RXCourse.services.UserService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(path = "/api/test/result")
+@RequestMapping(path = "/api/test_result")
 @AllArgsConstructor
 public class TestResultController extends BaseController {
 
     private TestResultService testResultService;
     private TestResultMapper testResultMapper;
-    private UserService userService;
-    private TestResultsAnswerService testResultsAnswerService;
 
     @GetMapping
     @ApiOperation("Получение всех ответов тестов в грязном виде")
@@ -47,12 +38,14 @@ public class TestResultController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление ответов теста")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> add(@RequestBody TestResultDto testResultDto) throws ServiceException {
         TestResult testResult = testResultMapper.toEntity(testResultDto);
         return buildResponse(testResultMapper.toDto(testResultService.save(testResult)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> update(@RequestBody TestResultDto testResultDto) throws ServiceException {
         TestResult testResult = testResultService.update(testResultMapper.toEntity(testResultDto));
         return buildResponse(SuccessResponse.builder()
@@ -63,6 +56,7 @@ public class TestResultController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление ответов теста")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> delete(@RequestBody TestResultDto testResultDto) throws ServiceException {
         testResultService.delete(testResultMapper.toEntity(testResultDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -70,29 +64,10 @@ public class TestResultController extends BaseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление ответов теста по ID")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         testResultService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
-
-    @PostMapping("/add/{testId}")
-    @ApiOperation("Сдать тест")
-    public ResponseEntity<?> passTest(Authentication authentication,@PathVariable Long testId,
-                                      @RequestBody List<TestResultsAnswer> testResultsAnswers) throws ServiceException {
-        User user = userService.findByLogin(authentication.getName());
-
-        TestResult testResult = new TestResult();
-        testResult.setUser(user);
-        testResult.setResult(0);
-        Test test = new Test();
-        test.setId(testId);
-        testResult.setTest(test);
-        testResultService.save(testResult);
-        int result = testResultsAnswerService.passTest(testResultsAnswers, testResult);
-        testResult.setResult(result);
-        testResultService.update(testResult);
-        return buildResponse(testResult, HttpStatus.OK);
-    }
-
 
 }

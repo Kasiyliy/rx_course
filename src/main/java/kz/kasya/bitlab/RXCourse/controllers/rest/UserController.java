@@ -46,7 +46,7 @@ public class UserController extends BaseController {
 
     @PostMapping
     @ApiOperation("Регистрация пользователей")
-    public ResponseEntity<?> add(@RequestBody UserDto userDto) throws ServiceException {
+    public ResponseEntity<?> add(@RequestBody @Validated UserDto userDto) throws ServiceException {
         User user = userMapper.toEntity(userDto);
         if (userService.findByLogin(user.getLogin()) == null) {
             Role role = new Role();

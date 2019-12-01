@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,12 +37,14 @@ public class LessonMaterialController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление lessonMaterial")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> add(@RequestBody LessonMaterialDto lessonMaterialDto) throws ServiceException {
         LessonMaterial lessonMaterial = lessonMaterialMapper.toEntity(lessonMaterialDto);
         return buildResponse(lessonMaterialMapper.toDto(lessonMaterialService.save(lessonMaterial)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> update(@RequestBody LessonMaterialDto lessonMaterialDto) throws ServiceException {
         LessonMaterial lessonMaterial = lessonMaterialService.update(lessonMaterialMapper.toEntity(lessonMaterialDto));
         return buildResponse(SuccessResponse.builder()
@@ -52,6 +55,7 @@ public class LessonMaterialController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление lessonMaterial")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> delete(@RequestBody LessonMaterialDto lessonMaterialDto) throws ServiceException{
         lessonMaterialService.delete(lessonMaterialMapper.toEntity(lessonMaterialDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -59,6 +63,7 @@ public class LessonMaterialController extends BaseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление lessonMaterial по ID")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
         lessonMaterialService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);

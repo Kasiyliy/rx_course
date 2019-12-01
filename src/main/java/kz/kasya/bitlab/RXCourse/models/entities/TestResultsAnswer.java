@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @SequenceGenerator(
         name = "seq",
-        sequenceName = "s_test_results_answers",
+        sequenceName = "s_test_result_answers",
         initialValue = 1,
         allocationSize = 1
 )

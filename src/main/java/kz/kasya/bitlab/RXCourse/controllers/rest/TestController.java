@@ -19,6 +19,7 @@ import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,12 +56,14 @@ public class TestController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление теста")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> add(@RequestBody TestDto testDto) throws ServiceException {
         Test test = testMapper.toEntity(testDto);
         return buildResponse(testMapper.toDto(testService.save(test)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> update(@RequestBody TestDto testDto) throws ServiceException {
         Test test = testService.update(testMapper.toEntity(testDto));
         return buildResponse(SuccessResponse.builder()
@@ -71,6 +74,7 @@ public class TestController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("Удаление теста")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> delete(@RequestBody TestDto testDto) throws ServiceException {
         testService.delete(testMapper.toEntity(testDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -78,6 +82,7 @@ public class TestController extends BaseController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление урока по ID")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         testService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);

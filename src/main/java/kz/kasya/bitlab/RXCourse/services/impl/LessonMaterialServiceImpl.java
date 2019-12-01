@@ -2,25 +2,24 @@ package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.entities.LessonMaterial;
+import kz.kasya.bitlab.RXCourse.modules.file.services.FileStorageService;
 import kz.kasya.bitlab.RXCourse.repositories.LessonMaterialRepository;
 import kz.kasya.bitlab.RXCourse.services.LessonMaterialService;
-import kz.kasya.bitlab.RXCourse.services.LessonService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class LessonMaterialServiceImpl implements LessonMaterialService{
-    private LessonMaterialRepository lessonMaterialRepository;
 
-    @Autowired
-    public LessonMaterialServiceImpl(LessonMaterialRepository lessonMaterialRepository) {
-        this.lessonMaterialRepository = lessonMaterialRepository;
-    }
+    private LessonMaterialRepository lessonMaterialRepository;
+    private FileStorageService fileStorageService;
 
     @Override
     public List<LessonMaterial> findAll() {
@@ -66,6 +65,9 @@ public class LessonMaterialServiceImpl implements LessonMaterialService{
                     .message("lesson is null")
                     .build();
         }
+        if(Objects.nonNull(lessonMaterial.getUrl())){
+            fileStorageService.loadFileAsResource(lessonMaterial.getUrl());
+        }
         lessonMaterial = findById(lessonMaterial.getId());
         lessonMaterial.setDeletedAt(new Date());
         lessonMaterialRepository.save(lessonMaterial);
@@ -92,6 +94,6 @@ public class LessonMaterialServiceImpl implements LessonMaterialService{
                     .message("id is null")
                     .build();
         }
-        return lessonMaterialRepository.findAllByLessonId(id);
+        return lessonMaterialRepository.findAllByLessonIdAndDeletedAtIsNull(id);
     }
 }

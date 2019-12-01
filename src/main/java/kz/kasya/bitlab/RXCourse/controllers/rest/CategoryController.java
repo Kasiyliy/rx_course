@@ -13,6 +13,7 @@ import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class CategoryController extends BaseController {
 
     @PostMapping
     @ApiOperation("Создание категории")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> add(@RequestBody CategoryDto categoryDto) throws ServiceException {
         Category category = categoryMapper.toEntity(categoryDto);
         category = categoryService.save(category);
@@ -62,18 +64,23 @@ public class CategoryController extends BaseController {
 
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<?> delete(@PathVariable Long id) throws ServiceException {
         categoryService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @DeleteMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<?> delete(@RequestBody CategoryDto categoryDto) throws ServiceException {
         categoryService.delete(categoryMapper.toEntity(categoryDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> update(@RequestBody CategoryDto categoryDto) throws ServiceException {
         Category category = categoryService.update(categoryMapper.toEntity(categoryDto));
         return buildResponse(SuccessResponse.builder()

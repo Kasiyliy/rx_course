@@ -44,21 +44,24 @@ public class CourseController extends BaseController {
 
     @PostMapping
     @ApiOperation("Добавление курса")
-    public ResponseEntity<?> add(@RequestBody CourseDto courseDto) throws ServiceException{
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<?> add(@RequestBody CourseDto courseDto) throws ServiceException {
         Course course = courseMapper.toEntity(courseDto);
         return buildResponse(courseMapper.toDto(courseService.save(course)), HttpStatus.CREATED);
     }
 
     @DeleteMapping
     @ApiOperation("Удаление курса")
-    public ResponseEntity<?> delete(@RequestBody CourseDto courseDto) throws ServiceException{
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<?> delete(@RequestBody CourseDto courseDto) throws ServiceException {
         courseService.delete(courseMapper.toEntity(courseDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @ApiOperation("Удаление курса по ID")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException{
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws ServiceException {
         courseService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }

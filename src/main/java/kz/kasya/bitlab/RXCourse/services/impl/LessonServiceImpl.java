@@ -1,7 +1,6 @@
 package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
-import kz.kasya.bitlab.RXCourse.models.entities.Course;
 import kz.kasya.bitlab.RXCourse.models.entities.Lesson;
 import kz.kasya.bitlab.RXCourse.repositories.LessonRepository;
 import kz.kasya.bitlab.RXCourse.services.LessonService;
@@ -94,7 +93,7 @@ public class LessonServiceImpl implements LessonService{
                     .message("id is null")
                     .build();
         }
-        return lessonRepository.findAllByCourseId(id);
+        return lessonRepository.findAllByCourseIdAndDeletedAtIsNullOrderByOrderAsc(id);
 
     }
 
