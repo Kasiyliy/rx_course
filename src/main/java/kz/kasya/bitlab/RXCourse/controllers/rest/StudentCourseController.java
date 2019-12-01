@@ -35,6 +35,12 @@ public class StudentCourseController extends BaseController {
         User user = userService.findByLogin(authentication.getName());
         return buildResponse(studentCourseService.findAllPageableByUserId(page, size, sortBy, user.getId()), HttpStatus.OK);
     }
+    @GetMapping("/tests")
+    @ApiOperation("Получение тестов по userId and my course")
+    public ResponseEntity<?> getAllTestsByUserId(Authentication authentication) throws ServiceException {
+        User user = userService.findByLogin(authentication.getName());
+        return buildResponse(studentCourseService.getTests(user.getId()), HttpStatus.OK);
+    }
 
     @PostMapping
     @ApiOperation("Добавление курса")

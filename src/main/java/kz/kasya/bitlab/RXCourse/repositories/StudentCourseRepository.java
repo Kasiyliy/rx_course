@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface StudentCourseRepository extends JpaRepository<StudentCourse, Long> {
-    List<StudentCourse> findByUser_Id(Long id);
+    List<StudentCourse> findByUser_IdAndDeletedAtIsNull(Long id);
     Page<StudentCourse> findAllPageableByUser_idAndDeletedAtIsNull(Pageable pageable, Long userId);
 
 }

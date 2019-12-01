@@ -2,6 +2,7 @@ package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.entities.TestResult;
+import kz.kasya.bitlab.RXCourse.models.entities.TestResultsAnswer;
 import kz.kasya.bitlab.RXCourse.repositories.TestResultRepository;
 import kz.kasya.bitlab.RXCourse.services.TestResultService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;

@@ -2,6 +2,7 @@ package kz.kasya.bitlab.RXCourse.services;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.entities.StudentCourse;
+import kz.kasya.bitlab.RXCourse.models.entities.Test;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface StudentCourseService {
                                          Optional<Integer> size,
                                          Optional<String[]> sortBy,
                                          Long userId);
+    List<Test> getTests(Long userId) throws ServiceException;
 }

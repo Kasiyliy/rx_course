@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/test_result/answer")
+@RequestMapping(path = "/api/test/result/answer")
 @AllArgsConstructor
 public class TestResultsAnswerController extends BaseController {
 
