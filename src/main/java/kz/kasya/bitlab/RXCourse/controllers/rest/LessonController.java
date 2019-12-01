@@ -25,12 +25,6 @@ public class LessonController extends BaseController {
     private LessonService lessonService;
     private LessonMapper lessonMapper;
 
-    @GetMapping
-    @ApiOperation("Получение всех уроков в грязном виде")
-    public ResponseEntity<?> getAll() {
-        return buildResponse(lessonMapper.toDtoList(lessonService.findAll()), HttpStatus.OK);
-    }
-
     @GetMapping("{id}")
     @ApiOperation("Получение уроков по ID")
     public ResponseEntity<?> getOne(@ApiParam("ID элемента") @PathVariable Long id) throws ServiceException {

@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson,Long> {
     List<Lesson> findAllByDeletedAtIsNull();
-    List<Lesson> findAllByCourseId(Long id);
+
+    List<Lesson> findAllByCourseIdAndDeletedAtIsNullOrderByOrderAsc(Long id);
 }
