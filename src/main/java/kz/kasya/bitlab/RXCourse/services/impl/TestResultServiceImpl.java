@@ -83,4 +83,9 @@ public class TestResultServiceImpl implements TestResultService {
         testResult.setDeletedAt(new Date());
         testResultRepository.save(testResult);
     }
+
+    @Override
+    public List<TestResult> getMyResults(Long userId) {
+        return testResultRepository.findAllByDeletedAtIsNullAndUser_Id(userId);
+    }
 }

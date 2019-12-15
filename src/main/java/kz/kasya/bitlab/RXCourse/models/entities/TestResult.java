@@ -29,4 +29,7 @@ public class TestResult extends AuditModel {
     @Column(name = "result")
     @NotNull(message = "result is required")
     private Integer result;
+
+    @Column(name = "all_score")
+    private Integer allScore;
 }
