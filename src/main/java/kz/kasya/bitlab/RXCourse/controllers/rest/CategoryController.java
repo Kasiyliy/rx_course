@@ -65,7 +65,6 @@ public class CategoryController extends BaseController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public ResponseEntity<?> delete(@PathVariable Long id) throws ServiceException {
         categoryService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
@@ -73,7 +72,6 @@ public class CategoryController extends BaseController {
 
     @DeleteMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public ResponseEntity<?> delete(@RequestBody CategoryDto categoryDto) throws ServiceException {
         categoryService.delete(categoryMapper.toEntity(categoryDto));
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
