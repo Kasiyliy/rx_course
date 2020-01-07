@@ -1,11 +1,14 @@
 package kz.kasya.bitlab.RXCourse.services.impl;
 
 import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
+import kz.kasya.bitlab.RXCourse.models.entities.Question;
 import kz.kasya.bitlab.RXCourse.models.entities.QuestionOption;
 import kz.kasya.bitlab.RXCourse.models.entities.TestResult;
 import kz.kasya.bitlab.RXCourse.models.entities.TestResultsAnswer;
+import kz.kasya.bitlab.RXCourse.models.responses.TestResultResponse;
 import kz.kasya.bitlab.RXCourse.repositories.TestResultsAnswerRepository;
 import kz.kasya.bitlab.RXCourse.services.QuestionOptionService;
+import kz.kasya.bitlab.RXCourse.services.QuestionService;
 import kz.kasya.bitlab.RXCourse.services.TestResultsAnswerService;
 import kz.kasya.bitlab.RXCourse.shared.utils.codes.ErrorCode;
 import lombok.AllArgsConstructor;
@@ -17,10 +20,9 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class TestAnswersResultServiceImpl implements TestResultsAnswerService {
-    @Autowired
     private TestResultsAnswerRepository testResultsAnswerRepository;
-    @Autowired
     private QuestionOptionService questionOptionService;
+    private QuestionService questionService;
 
     @Override
     public List<TestResultsAnswer> findAll() {
@@ -85,10 +87,11 @@ public class TestAnswersResultServiceImpl implements TestResultsAnswerService {
     }
 
     @Override
-    public Integer passTest(List<TestResultsAnswer> testResultsAnswers, TestResult testResult) throws ServiceException {
+    public TestResultResponse passTest(List<TestResultsAnswer> testResultsAnswers, TestResult testResult) throws ServiceException {
         List<Long> ids = new ArrayList<>();
         HashMap<Long, Boolean> hashMap = new HashMap<>();
         int result = 0;
+        int allScore = 0;
         for (TestResultsAnswer testResultsAnswer : testResultsAnswers) {
             ids.add(testResultsAnswer.getQuestionOption().getId());
         }
@@ -105,10 +108,15 @@ public class TestAnswersResultServiceImpl implements TestResultsAnswerService {
         }
         testResultsAnswerRepository.saveAll(testResultsAnswers);
         for (TestResultsAnswer testResultsAnswer : testResultsAnswers) {
+            Question question = questionService.findById(testResultsAnswer.getQuestion().getId());
+            allScore += question.getScore();
             if(testResultsAnswer.isAnswer()){
-                result += testResultsAnswer.getQuestion().getScore();
+                result += question.getScore();
             }
         }
-        return result;
+        TestResultResponse testResultResponse = new TestResultResponse();
+        testResultResponse.setResult(result);
+        testResultResponse.setAllScore(allScore);
+        return testResultResponse;
     }
 }

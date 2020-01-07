@@ -13,4 +13,6 @@ public interface TestResultService {
     TestResult update(TestResult testResult) throws ServiceException;
     void delete(TestResult testResult) throws ServiceException;
     void deleteById(Long id) throws ServiceException;
+    List<TestResult> getMyResults(Long userId);
+
 }

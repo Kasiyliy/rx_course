@@ -7,12 +7,16 @@ import kz.kasya.bitlab.RXCourse.exceptions.ServiceException;
 import kz.kasya.bitlab.RXCourse.models.dtos.TestResultsAnswerDto;
 import kz.kasya.bitlab.RXCourse.models.entities.TestResultsAnswer;
 import kz.kasya.bitlab.RXCourse.models.mappers.TestResultsAnswerMapper;
+import kz.kasya.bitlab.RXCourse.models.requests.TestRequestQuestions;
 import kz.kasya.bitlab.RXCourse.services.TestResultsAnswerService;
 import kz.kasya.bitlab.RXCourse.shared.utils.responses.SuccessResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/test/result/answer")
@@ -63,4 +67,5 @@ public class TestResultsAnswerController extends BaseController {
         testResultsAnswerService.deleteById(id);
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
+
 }
